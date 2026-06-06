@@ -17,8 +17,15 @@ import CartAndWishlistDrawers from './components/CartAndWishlistDrawers';
 
 export default function App() {
   // 1. STATE INITIALIZATION & SYNC ENGINE
+  const [ageVerified, setAgeVerified] = useState<boolean>(() => {
+    return localStorage.getItem('steagg_age_verified') === 'true';
+  });
+
   const [currentMode, setCurrentMode] = useState<BrandMode>(() => {
     const saved = localStorage.getItem('steagg_mode');
+    const verified = localStorage.getItem('steagg_age_verified') === 'true';
+    // Never restore into the 18+ Kawaii mode without prior age confirmation.
+    if (saved === 'STEAGG_KAWAII' && !verified) return 'STEAGG';
     return (saved as BrandMode) || 'STEAGG';
   });
 
@@ -96,6 +103,30 @@ export default function App() {
 
   // Promo overlays
   const [showPromoPopup, setShowPromoPopup] = useState(false);
+
+  // 18+ age gate for the Kawaii sub-brand
+  const [showAgeGate, setShowAgeGate] = useState(false);
+
+  // Intercept mode changes: entering Kawaii requires age confirmation.
+  const handleModeChange = (mode: BrandMode) => {
+    if (mode === 'STEAGG_KAWAII' && !ageVerified) {
+      setShowAgeGate(true);
+      return;
+    }
+    setCurrentMode(mode);
+  };
+
+  const handleConfirmAge = () => {
+    setAgeVerified(true);
+    localStorage.setItem('steagg_age_verified', 'true');
+    setCurrentMode('STEAGG_KAWAII');
+    setShowAgeGate(false);
+  };
+
+  const handleRejectAge = () => {
+    // Keep the user in whatever mode they were already in.
+    setShowAgeGate(false);
+  };
 
   // Video model active lookbook player
   const [campaignVideoActive, setCampaignVideoActive] = useState(false);
@@ -239,7 +270,7 @@ export default function App() {
       {/* Main navigation Header bar */}
       <Navbar
         currentMode={currentMode}
-        onModeChange={setCurrentMode}
+        onModeChange={handleModeChange}
         cartCount={cartItems.reduce((acc, c) => acc + c.quantity, 0)}
         wishlistCount={wishlist.length}
         isAdminOpen={isAdminOpen}
@@ -440,7 +471,7 @@ export default function App() {
             <ul className="space-y-2 font-light">
               <li><button onClick={handleScrollToShop} className="hover:underline hover:text-white">Shop Entire Archive</button></li>
               <li><button onClick={() => setCurrentMode('STEAGG')} className="hover:underline hover:text-white">Editorial Minimalist Line</button></li>
-              <li><button onClick={() => setCurrentMode('STEAGG_KAWAII')} className="hover:underline hover:text-white">STE AGG Kawaii Pastels</button></li>
+              <li><button onClick={() => handleModeChange('STEAGG_KAWAII')} className="hover:underline hover:text-white">STE AGG Kawaii Pastels</button></li>
               <li><button onClick={() => setIsAdminOpen(true)} className="hover:underline hover:text-white">Owner Creator Studio</button></li>
             </ul>
           </div>
@@ -636,6 +667,50 @@ export default function App() {
                   className="mt-2 text-xs uppercase font-bold underline hover:text-rose-400 tracking-wider inline-block cursor-pointer"
                 >
                   Terminate Cinematic Projection
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* 7. AGE GATE 18+ FOR KAWAII MODE */}
+      <AnimatePresence>
+        {showAgeGate && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-stone-900/70 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
+              className="p-6 sm:p-8 rounded-3xl max-w-sm w-full text-center relative z-10 shadow-2xl bg-white font-kawaii text-rose-950 border-2 border-pink-200"
+            >
+              <div className="text-4xl mb-3">🔞🌸</div>
+              <h3 className="text-lg font-bold uppercase mb-2 text-pink-500">
+                Contenido para mayores de 18
+              </h3>
+              <p className="text-xs text-rose-900/80 leading-relaxed mb-6 font-medium">
+                El modo STE AGG Kawaii está destinado únicamente a usuarios mayores de 18 años. Por favor confirma tu edad para continuar.
+              </p>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={handleConfirmAge}
+                  className="w-full py-3 rounded-full text-xs font-bold text-white transition cursor-pointer bg-pink-400 hover:bg-pink-500"
+                >
+                  Sí, soy mayor de 18
+                </button>
+                <button
+                  onClick={handleRejectAge}
+                  className="w-full py-3 rounded-full text-xs font-bold transition cursor-pointer border border-pink-200 text-rose-700 hover:bg-rose-50"
+                >
+                  No, no soy mayor de 18
                 </button>
               </div>
             </motion.div>

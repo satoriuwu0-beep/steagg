@@ -1,0 +1,6 @@
+{
+  "name": "STEAGG",
+  "description": "A premium editorial clothing brand featuring minimal luxury aesthetics and a cute kawaii sub-brand experience called STE AGG.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

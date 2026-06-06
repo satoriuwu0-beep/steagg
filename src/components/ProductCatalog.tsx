@@ -25,7 +25,7 @@ export default function ProductCatalog({
   const isKawaii = currentMode === 'STEAGG_KAWAII';
 
   // State filters
-  const [selectedCategory, setSelectedCategory] = useState("All Items");
+  const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
   const [maxPrice, setMaxPrice] = useState(500);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -34,7 +34,7 @@ export default function ProductCatalog({
 
   // Available unique sizes for fitters
   const sizeOptions = useMemo(() => {
-    return isKawaii ? ["S", "M", "L", "One Size (S-L)"] : ["XXS", "XS", "S", "M", "L", "XL"];
+    return isKawaii ? ["S", "M", "L", "Talla única (S-L)"] : ["XXS", "XS", "S", "M", "L", "XL"];
   }, [isKawaii]);
 
   // Filter products by brand Mode & filters
@@ -44,7 +44,7 @@ export default function ProductCatalog({
       if (product.brandMode !== currentMode) return false;
 
       // Category filter
-      if (selectedCategory !== "All Items" && product.category !== selectedCategory) return false;
+      if (selectedCategory !== "Todos" && product.category !== selectedCategory) return false;
 
       // Price limit
       if (product.price > maxPrice) return false;
@@ -79,14 +79,14 @@ export default function ProductCatalog({
     const defaultSize = product.sizes[0] || "M";
     const defaultColor = product.colorHexes[0] || "#FAF9F6";
     onAddToCart(product, defaultSize, defaultColor);
-    showNotification(`Added ${product.name} (${defaultSize}) to your Bag!`);
+    showNotification(`¡Añadido ${product.name} (${defaultSize}) a tu bolsa!`);
   };
 
   const handleWishlistClick = (e: React.MouseEvent, productId: string, name: string) => {
     e.stopPropagation();
     onToggleWishlist(productId);
     const isNowLiked = !wishlist.includes(productId);
-    showNotification(isNowLiked ? `Added ${name} to Wishlist! 🖤` : `Removed ${name} from Wishlist`);
+    showNotification(isNowLiked ? `¡Añadido ${name} a favoritos! 🖤` : `${name} eliminado de favoritos`);
   };
 
   return (
@@ -105,10 +105,10 @@ export default function ProductCatalog({
                 ? 'font-kawaii text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 filter drop-shadow-sm' 
                 : 'font-serif text-stone-900 tracking-wider'
             }`}>
-              {isKawaii ? '🍰 Sweet Season Selections' : 'Architectural Collection'}
+              {isKawaii ? '🍰 Dulces Selecciones de Temporada' : 'Colección Arquitectónica'}
             </h2>
             <p className={`text-xs mt-1 ${isKawaii ? 'text-pink-600/70 font-medium' : 'text-stone-500 tracking-widest uppercase font-light'}`}>
-              {isKawaii ? 'Fluffy structures, magical coordinates, and high-fashion comfort.' : 'Avant-Garde structural geometries designed for core longevity.'}
+              {isKawaii ? 'Estructuras esponjosas, coordinados mágicos y comodidad de alta moda.' : 'Geometrías estructurales vanguardistas diseñadas para perdurar.'}
             </p>
           </div>
 
@@ -122,7 +122,7 @@ export default function ProductCatalog({
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" size={16} />
               <input
                 type="text"
-                placeholder={isKawaii ? "Search cloud-knits..." : "Search style archives..."}
+                placeholder={isKawaii ? "Buscar punto nube..." : "Buscar en el archivo..."}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full text-xs pl-10 pr-4 py-2.5 outline-none bg-transparent"
@@ -147,7 +147,7 @@ export default function ProductCatalog({
               }`}
             >
               <SlidersHorizontal size={14} />
-              <span>{showFilters ? 'Hide Parameters' : 'Adjust Filters'}</span>
+              <span>{showFilters ? 'Ocultar filtros' : 'Ajustar filtros'}</span>
             </button>
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function ProductCatalog({
                 {/* Size Filter */}
                 <div>
                   <h4 className={`text-xs font-bold uppercase mb-3 ${isKawaii ? 'text-pink-600' : 'text-stone-900 tracking-wider'}`}>
-                    Available Silhouette Size
+                    Talla disponible
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     <button
@@ -179,7 +179,7 @@ export default function ProductCatalog({
                           : isKawaii ? 'border-rose-200 hover:bg-rose-100/50 text-rose-700' : 'border-stone-300 hover:bg-stone-100 text-stone-700'
                       }`}
                     >
-                      All Fits
+                      Todas
                     </button>
                     {sizeOptions.map(size => (
                       <button
@@ -201,7 +201,7 @@ export default function ProductCatalog({
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <h4 className={`text-xs font-bold uppercase ${isKawaii ? 'text-pink-600' : 'text-stone-900 tracking-wider'}`}>
-                      Maximum Pricing Tier
+                      Precio máximo
                     </h4>
                     <span className="text-xs font-bold font-mono">${maxPrice} USD</span>
                   </div>
@@ -229,7 +229,7 @@ export default function ProductCatalog({
                       setSelectedSize(null);
                       setMaxPrice(500);
                       setSearchQuery("");
-                      setSelectedCategory("All Items");
+                      setSelectedCategory("Todos");
                     }}
                     className={`px-5 py-3 rounded-full text-xs font-bold transition-all hover:shadow-sm cursor-pointer ${
                       isKawaii
@@ -237,7 +237,7 @@ export default function ProductCatalog({
                         : 'bg-stone-900 text-stone-50 hover:bg-stone-950'
                     }`}
                   >
-                    Reset Active Parameters
+                    Restablecer filtros
                   </button>
                 </div>
               </div>
@@ -273,11 +273,11 @@ export default function ProductCatalog({
       {/* Grid Container */}
       {filteredProducts.length === 0 ? (
         <div className="text-center py-24 border border-dashed border-stone-200 rounded-2xl flex flex-col items-center justify-center bg-stone-50/50">
-          <p className="text-lg text-stone-500 font-light italic mb-2">No archive patterns registered in this dimension...</p>
-          <span className="text-xs text-stone-400">Try loosening your style parameters or resetting active filters.</span>
+          <p className="text-lg text-stone-500 font-light italic mb-2">No hay prendas registradas en esta dimensión...</p>
+          <span className="text-xs text-stone-400">Prueba a relajar tus criterios de estilo o restablecer los filtros activos.</span>
           <button
             onClick={() => {
-              setSelectedCategory("All Items");
+              setSelectedCategory("Todos");
               setSelectedSize(null);
               setMaxPrice(500);
               setSearchQuery("");
@@ -286,7 +286,7 @@ export default function ProductCatalog({
               isKawaii ? 'border-rose-200 hover:bg-rose-100/50 text-rose-700' : ''
             }`}
           >
-            Clear Selected Filter Specs
+            Limpiar filtros seleccionados
           </button>
         </div>
       ) : (
@@ -330,7 +330,7 @@ export default function ProductCatalog({
                       <span className={`text-[9px] uppercase px-2 py-1 rounded-full font-bold tracking-widest text-white shadow-sm ${
                         isKawaii ? 'bg-gradient-to-r from-pink-400 to-rose-400' : 'bg-black'
                       }`}>
-                        NEW ADDITION
+                        NUEVO
                       </span>
                     )}
                     {product.originalPrice && product.originalPrice > product.price && (
@@ -359,7 +359,7 @@ export default function ProductCatalog({
                           ? 'bg-gradient-to-r from-pink-400 to-purple-400 text-white'
                           : 'bg-stone-950 text-white hover:bg-stone-900'
                       }`}
-                      title="Quick Add To Bag"
+                      title="Añadir rápido a la bolsa"
                     >
                       <ShoppingBag size={16} />
                     </button>

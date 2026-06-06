@@ -76,7 +76,7 @@ export default function CartAndWishlistDrawers({
       setActiveDiscountRate(0.15);
       setPromoApplied(true);
     } else {
-      alert("Invalid archive voucher code. Try 'SWEET15'");
+      alert("Código de cupón no válido. Prueba con 'SWEET15'");
     }
   };
 
@@ -118,7 +118,7 @@ export default function CartAndWishlistDrawers({
                 <div className="flex items-center gap-2.5">
                   <ShoppingBag size={18} className={isKawaii ? 'text-pink-500' : 'text-stone-700'} />
                   <h3 className={`text-base font-bold uppercase ${isKawaii ? 'text-pink-600 font-extrabold' : 'tracking-wider font-serif text-stone-950'}`}>
-                    {isKawaii ? '🍦 Sweet Goods Cupboard' : 'Closet Capsule Bag'}
+                    {isKawaii ? '🍦 Bolsa Dulce' : 'Bolsa de Compra'}
                   </h3>
                   <span className="text-xs bg-stone-105 bg-stone-200 text-stone-750 px-2.5 py-0.5 rounded-full font-bold">
                     {cartItems.length}
@@ -144,26 +144,26 @@ export default function CartAndWishlistDrawers({
                       {isKawaii ? '🧁🎉🦄' : '🖤🎁✨'}
                     </motion.div>
                     <h3 className={`text-xl font-bold uppercase ${isKawaii ? 'text-pink-500' : 'text-stone-900 font-serif'}`}>
-                      {isKawaii ? 'Order Secured & Sealed!' : 'Order Dispatched to Archive'}
+                      {isKawaii ? '¡Pedido confirmado y sellado!' : 'Pedido enviado al archivo'}
                     </h3>
                     <p className="text-xs text-stone-400 max-w-xs leading-relaxed font-light">
-                      Receipt has been allocated. Our bespoke tailored courier service is assembling your high-fashion selections immediately.
+                      Tu recibo ha sido generado. Nuestro servicio de mensajería a medida está preparando tus selecciones de alta moda de inmediato.
                     </p>
                     <span className="text-[10px] uppercase font-mono text-stone-400 font-semibold tracking-widest bg-stone-100 px-3 py-1 rounded">
-                      Allocating tracking metrics...
+                      Asignando datos de seguimiento...
                     </span>
                   </div>
                 ) : checkoutStep === 'details' ? (
                   /* STEP 2 IN CART: Shipping billing Form details */
                   <form onSubmit={handleProcessOrder} className="space-y-4">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 pb-1 border-b">Courier Specifications</h4>
-                    
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 pb-1 border-b">Datos del envío</h4>
+
                     <div>
-                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Addressee Name *</label>
+                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Nombre del destinatario *</label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Amélie Valentin"
+                        placeholder="p. ej. Amélie Valentin"
                         value={shippingName}
                         onChange={(e) => setShippingName(e.target.value)}
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
@@ -171,7 +171,7 @@ export default function CartAndWishlistDrawers({
                     </div>
 
                     <div>
-                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Contact Phone *</label>
+                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Teléfono de contacto *</label>
                       <input
                         type="tel"
                         required
@@ -183,13 +183,13 @@ export default function CartAndWishlistDrawers({
                     </div>
 
                     <div>
-                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Shipping Destination Address *</label>
+                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Dirección de envío *</label>
                       <textarea
                         rows={3}
                         required
                         value={shippingAddress}
                         onChange={(e) => setShippingAddress(e.target.value)}
-                        placeholder="Street Address, Postal/ZIP Code, Country location Code"
+                        placeholder="Calle, código postal, país"
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
                       />
                     </div>
@@ -200,7 +200,7 @@ export default function CartAndWishlistDrawers({
                         onClick={() => setCheckoutStep('review')}
                         className="px-4 py-2.5 text-xs font-bold border rounded-xl hover:bg-stone-50 cursor-pointer text-stone-600"
                       >
-                        Back
+                        Atrás
                       </button>
                       <button
                         type="submit"
@@ -208,7 +208,7 @@ export default function CartAndWishlistDrawers({
                           isKawaii ? 'bg-pink-400 hover:bg-pink-500 font-kawaii' : 'bg-stone-900 hover:bg-stone-950 font-sans'
                         }`}
                       >
-                        Finalize Capsule Transaction
+                        Finalizar compra
                       </button>
                     </div>
                   </form>
@@ -216,14 +216,14 @@ export default function CartAndWishlistDrawers({
                   /* Empty state */
                   <div className="flex flex-col items-center justify-center h-4/5 text-center p-6 space-y-4">
                     <span className="text-4xl text-stone-300">🛒</span>
-                    <p className="text-sm text-stone-505 font-light italic">Your shopping cupboard is currently vacant...</p>
+                    <p className="text-sm text-stone-505 font-light italic">Tu bolsa está vacía por ahora...</p>
                     <button
                       onClick={onCloseCart}
                       className={`px-6 py-2.5 rounded-full border text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:bg-stone-50 transition-colors ${
                         isKawaii ? 'border-pink-200 text-pink-600' : 'border-stone-300 text-stone-700'
                       }`}
                     >
-                      Browse Patterns
+                      Ver productos
                     </button>
                   </div>
                 ) : (
@@ -236,7 +236,7 @@ export default function CartAndWishlistDrawers({
                         <button
                           onClick={() => onRemoveFromCart(line.lineId)}
                           className="absolute top-2.5 right-2.5 text-stone-400 hover:text-red-500 p-1 rounded-full cursor-pointer transition-colors"
-                          title="Eliminate coordinates"
+                          title="Eliminar artículo"
                         >
                           <Trash2 size={13} />
                         </button>
@@ -250,7 +250,7 @@ export default function CartAndWishlistDrawers({
                             </h4>
                             <div className="flex gap-2 text-[10px] text-stone-400 mt-1 flex-wrap">
                               <span className="font-semibold uppercase bg-stone-200 px-1.5 py-0.1 select-none text-stone-850 rounded">
-                                Size: {line.item.size}
+                                Talla: {line.item.size}
                               </span>
                               <span
                                 style={{ backgroundColor: line.item.color }}
@@ -299,7 +299,7 @@ export default function CartAndWishlistDrawers({
                   <form onSubmit={handleApplyPromo} className="flex gap-2">
                     <input
                       type="text"
-                      placeholder={isKawaii ? "Sweet Code? (SWEET15)" : "Promo code (SWEET15)"}
+                      placeholder={isKawaii ? "¿Código dulce? (SWEET15)" : "Código promocional (SWEET15)"}
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
                       className="flex-1 text-xs px-3.5 py-2 border rounded-full bg-white max-w-[200px] outline-none"
@@ -310,34 +310,34 @@ export default function CartAndWishlistDrawers({
                         isKawaii ? 'bg-pink-400 hover:bg-pink-500 font-kawaii' : 'bg-stone-900 hover:bg-stone-950 font-sans'
                       }`}
                     >
-                      Apply
+                      Aplicar
                     </button>
                   </form>
 
                   {/* Summary math prices */}
                   <div className="space-y-1.5 text-xs text-stone-550 border-b pb-3 border-stone-100">
                     <div className="flex justify-between">
-                      <span className="font-light text-stone-500">Fabric Subtotal</span>
+                      <span className="font-light text-stone-500">Subtotal</span>
                       <span className="font-bold font-mono">${subtotal}</span>
                     </div>
                     {promoApplied && (
                       <div className="flex justify-between text-emerald-600 font-semibold">
                         <span className="flex items-center gap-1">
                           <Ticket size={11} />
-                          <span>Promo SWEET15 (-15%)</span>
+                          <span>Cupón SWEET15 (-15%)</span>
                         </span>
                         <span className="font-mono">-${discountAmount.toFixed(0)}</span>
                       </div>
                     )}
                     <div className="flex justify-between">
-                      <span className="font-light text-stone-500">Insured Cargo Shipping</span>
-                      <span className="font-mono">{estimatedShipping === 0 ? 'Complimentary' : `$${estimatedShipping}`}</span>
+                      <span className="font-light text-stone-500">Envío asegurado</span>
+                      <span className="font-mono">{estimatedShipping === 0 ? 'Gratis' : `$${estimatedShipping}`}</span>
                     </div>
                   </div>
 
                   <div className="flex justify-between items-end">
                     <div>
-                      <span className="text-[10px] text-stone-400 uppercase font-bold block">Total Summation</span>
+                      <span className="text-[10px] text-stone-400 uppercase font-bold block">Total</span>
                       <span className="text-xl font-bold font-mono text-stone-950">${grandTotal.toFixed(0)} USD</span>
                     </div>
 
@@ -349,14 +349,14 @@ export default function CartAndWishlistDrawers({
                           : 'bg-stone-950 hover:bg-stone-900 tracking-widest uppercase font-sans'
                       }`}
                     >
-                      <span>Express Checkout</span>
+                      <span>Pagar ahora</span>
                       <ArrowRight size={13} />
                     </button>
                   </div>
 
                   <div className="flex items-center gap-1.5 justify-center text-[10px] text-stone-400 font-semibold uppercase">
                     <ShieldCheck size={12} className="text-emerald-500" />
-                    <span>256-bit SSL capsule protection</span>
+                    <span>Protección SSL de 256 bits</span>
                   </div>
                 </div>
               )}
@@ -389,7 +389,7 @@ export default function CartAndWishlistDrawers({
                 <div className="flex items-center gap-2.5">
                   <Heart size={18} fill="#f43f5e" className="text-rose-500 border-none" />
                   <h3 className={`text-base font-bold uppercase ${isKawaii ? 'text-pink-600 font-extrabold' : 'tracking-wider font-serif text-stone-950'}`}>
-                    {isKawaii ? '🧁 Wishlist Closet' : 'Archived Passions'}
+                    {isKawaii ? '🧁 Lista de Deseos' : 'Favoritos Guardados'}
                   </h3>
                   <span className="text-xs bg-rose-200 text-rose-805 text-rose-700 px-2.5 py-0.5 rounded-full font-bold">
                     {wishlistIds.length}
@@ -408,14 +408,14 @@ export default function CartAndWishlistDrawers({
                 {wishlistIds.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-4/5 text-center p-6 space-y-4">
                     <span className="text-4xl text-rose-300">🖤</span>
-                    <p className="text-sm text-stone-500 font-light italic">Your Passion Cabinet is empty right now...</p>
+                    <p className="text-sm text-stone-500 font-light italic">Tu lista de deseos está vacía ahora mismo...</p>
                     <button
                       onClick={onCloseWishlist}
                       className={`px-6 py-2.5 rounded-full border text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:bg-stone-50 transition-colors ${
                         isKawaii ? 'border-pink-200 text-pink-600' : 'border-stone-300 text-stone-700'
                       }`}
                     >
-                      Browse collection
+                      Ver colección
                     </button>
                   </div>
                 ) : (
@@ -429,7 +429,7 @@ export default function CartAndWishlistDrawers({
                           <button
                             onClick={() => onToggleWishlist(item.id)}
                             className="absolute top-2.5 right-2.5 text-stone-400 hover:text-red-500 p-1 rounded-full cursor-pointer transition-colors"
-                            title="Eliminate passions"
+                            title="Eliminar de favoritos"
                           >
                             <Trash2 size={13} />
                           </button>
@@ -452,13 +452,13 @@ export default function CartAndWishlistDrawers({
                                 const defaultColor = item.colorHexes[0] || '#fff';
                                 onAddToCart(item, defaultSize, defaultColor);
                                 onToggleWishlist(item.id);
-                                alert(`Moved ${item.name} to Closet bag!`);
+                                alert(`¡${item.name} movido a la bolsa!`);
                               }}
                               className={`mt-2 py-1.5 px-4 rounded-full text-[10px] font-bold text-white text-center cursor-pointer uppercase tracking-wider transition-colors ${
                                 isKawaii ? 'bg-pink-400 hover:bg-pink-500' : 'bg-stone-900 hover:bg-stone-950'
                               }`}
                             >
-                              Add to Bag & Keep Shop
+                              Añadir a la bolsa
                             </button>
                           </div>
 
@@ -472,7 +472,7 @@ export default function CartAndWishlistDrawers({
               {/* Drawer footer */}
               <div className="p-5 border-t border-stone-200 text-center bg-stone-50">
                 <span className="text-[10px] text-stone-400 uppercase tracking-widest font-mono">
-                  STEAGG Premium Insured Closet Cabinet
+                  Armario premium asegurado STEAGG
                 </span>
               </div>
             </motion.div>

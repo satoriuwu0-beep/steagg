@@ -38,11 +38,11 @@ export default function AuthModal({
     if (isRegister) {
       if (!nameInput || !emailInput) return;
       onLogin(nameInput, emailInput);
-      setSuccessMsg("Account assembled successfully! Welcome 🧁");
+      setSuccessMsg("¡Cuenta creada correctamente! Bienvenida 🧁");
     } else {
-      const fallbackName = emailInput.split('@')[0] || "Explorer";
+      const fallbackName = emailInput.split('@')[0] || "Visitante";
       onLogin(fallbackName, emailInput || "guest@steagg.com");
-      setSuccessMsg("Logged in successfully! Welcome back 🖤");
+      setSuccessMsg("¡Sesión iniciada! Bienvenida de nuevo 🖤");
     }
 
     setTimeout(() => {
@@ -54,7 +54,7 @@ export default function AuthModal({
   const handleSaveProfileDetails = (e: React.FormEvent) => {
     e.preventDefault();
     onUpdateAddress(addressInput, phoneInput);
-    setSuccessMsg("Account profile preferences saved successfully! ✨");
+    setSuccessMsg("¡Preferencias de tu perfil guardadas correctamente! ✨");
     setTimeout(() => setSuccessMsg(""), 2500);
   };
 
@@ -112,10 +112,10 @@ export default function AuthModal({
 
               {/* Editable Delivery Settings */}
               <form onSubmit={handleSaveProfileDetails} className="space-y-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 border-b pb-1">Delivery Guidelines</h4>
-                
+                <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 border-b pb-1">Datos de envío</h4>
+
                 <div>
-                  <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Contact Number</label>
+                  <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Número de contacto</label>
                   <input
                     type="tel"
                     placeholder="+1 (555) 019-2023"
@@ -126,10 +126,10 @@ export default function AuthModal({
                 </div>
 
                 <div>
-                  <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Destination Shipping Address</label>
+                  <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Dirección de envío</label>
                   <textarea
                     rows={2}
-                    placeholder="Street, Apartment Suite, ZIP, Country"
+                    placeholder="Calle, piso, código postal, país"
                     value={addressInput}
                     onChange={(e) => setAddressInput(e.target.value)}
                     className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
@@ -143,14 +143,14 @@ export default function AuthModal({
                       isKawaii ? 'bg-purple-400 hover:bg-purple-500' : 'bg-stone-900 hover:bg-stone-950'
                     }`}
                   >
-                    Save Preferences
+                    Guardar preferencias
                   </button>
                   <button
                     type="button"
                     onClick={onLogout}
                     className="px-4 py-2.5 text-xs text-red-650 text-red-500 border border-red-200 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                   >
-                    Logout
+                    Salir
                   </button>
                 </div>
               </form>
@@ -159,14 +159,14 @@ export default function AuthModal({
               <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl">
                 <h4 className="text-xs font-bold uppercase text-stone-500 mb-3 flex items-center gap-1.5">
                   <Package size={14} />
-                  <span>Tracking Archives</span>
+                  <span>Seguimiento de pedidos</span>
                 </h4>
                 <div className="space-y-2 text-[11px] leading-relaxed text-stone-500">
                   <div className="flex justify-between border-b pb-1 border-stone-240/10">
-                    <span className="font-semibold text-stone-700">Order #S-20931</span>
-                    <span className="px-2 py-0.2 rounded bg-amber-100 text-amber-800 text-[9px] font-bold">IN TRANSIT</span>
+                    <span className="font-semibold text-stone-700">Pedido #S-20931</span>
+                    <span className="px-2 py-0.2 rounded bg-amber-100 text-amber-800 text-[9px] font-bold">EN TRÁNSITO</span>
                   </div>
-                  <p className="font-light">Estimated Arrival: June 15, 2026 via Premium Insured Archival Carrier.</p>
+                  <p className="font-light">Llegada estimada: 15 de junio de 2026 mediante mensajería premium asegurada.</p>
                 </div>
               </div>
             </div>
@@ -176,16 +176,16 @@ export default function AuthModal({
               <div className="text-center mb-6">
                 <span className="text-2xl">{isKawaii ? '🍨' : '✦'}</span>
                 <h3 className={`text-xl font-bold uppercase mt-2 ${isKawaii ? 'text-pink-500 font-extrabold' : 'text-stone-900 font-serif'}`}>
-                  {isRegister ? 'Begin Your Archetype' : 'Connect Your Account'}
+                  {isRegister ? 'Crea tu cuenta' : 'Accede a tu cuenta'}
                 </h3>
                 <p className="text-xs text-stone-400 mt-1">
-                  {isRegister ? 'Register your specifications to unlock premium locks.' : 'Login to retrieve your bags and fitting details.'}
+                  {isRegister ? 'Regístrate para desbloquear ventajas premium.' : 'Inicia sesión para recuperar tu bolsa y tus datos.'}
                 </p>
               </div>
 
               {isRegister && (
                 <div>
-                  <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Your Name</label>
+                  <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Tu nombre</label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-450 text-stone-400" size={14} />
                     <input
@@ -201,7 +201,7 @@ export default function AuthModal({
               )}
 
               <div>
-                <label className="block text-[10px] text-stone-420 font-bold uppercase mb-1">Email Address</label>
+                <label className="block text-[10px] text-stone-420 font-bold uppercase mb-1">Correo electrónico</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={14} />
                   <input
@@ -216,7 +216,7 @@ export default function AuthModal({
               </div>
 
               <div>
-                <label className="block text-[10px] text-stone-420 font-bold uppercase mb-1">Password</label>
+                <label className="block text-[10px] text-stone-420 font-bold uppercase mb-1">Contraseña</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" size={14} />
                   <input
@@ -238,7 +238,7 @@ export default function AuthModal({
                     : 'bg-stone-950 hover:bg-stone-900 tracking-widest'
                 }`}
               >
-                {isRegister ? 'Complete Registration 🍰' : 'Establish Link 🖤'}
+                {isRegister ? 'Completar registro 🍰' : 'Iniciar sesión 🖤'}
               </button>
 
               <div className="text-center pt-2">
@@ -247,7 +247,7 @@ export default function AuthModal({
                   onClick={() => setIsRegister(!isRegister)}
                   className="text-xs text-stone-450 text-stone-500 hover:text-stone-900 underline"
                 >
-                  {isRegister ? 'Already have an archetype? Link here.' : 'Create new apparel archetype.'}
+                  {isRegister ? '¿Ya tienes cuenta? Inicia sesión aquí.' : 'Crear una cuenta nueva.'}
                 </button>
               </div>
             </form>

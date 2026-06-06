@@ -79,7 +79,7 @@ export default function Navbar({
             }`}
           >
             <span className={`text-xs ${isKawaii ? 'font-kawaii text-sm tracking-wide font-semibold' : 'uppercase tracking-wider text-[11px]'}`}>
-              {isKawaii ? '🌸 Back to Minimal Class' : '✨ STE AGG (Kawaii Mode)'}
+              {isKawaii ? '🌸 Volver a lo Minimal' : '✨ STE AGG (Modo Kawaii)'}
             </span>
             {isKawaii && (
               <motion.span
@@ -112,7 +112,7 @@ export default function Navbar({
           {/* Admin Switch */}
           <button
             onClick={onToggleAdmin}
-            title="Admin Customizer Dashboard"
+            title="Panel de personalización"
             className={`p-2 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer ${
               isAdminOpen
                 ? 'bg-rose-600 text-white shadow-lg rotate-180'
@@ -135,7 +135,7 @@ export default function Navbar({
                       ? 'bg-purple-200 text-purple-700 border-purple-300' 
                       : 'bg-stone-200 text-stone-800 border-stone-300'
                   }`}
-                  title={`Account: ${user.name}`}
+                  title={`Cuenta: ${user.name}`}
                 >
                   {user.name.charAt(0).toUpperCase()}
                 </button>
@@ -143,7 +143,7 @@ export default function Navbar({
                   onClick={onLogout}
                   className="text-[10px] uppercase text-stone-400 hover:text-stone-900 hidden sm:inline"
                 >
-                  Logout
+                  Salir
                 </button>
               </div>
             ) : (
@@ -152,7 +152,7 @@ export default function Navbar({
                 className={`p-2 rounded-full transition-all cursor-pointer ${
                   isKawaii ? 'text-rose-500 hover:bg-rose-100' : 'text-stone-600 hover:bg-stone-100'
                 }`}
-                title="Login / Register"
+                title="Iniciar sesión / Registrarse"
               >
                 <User size={20} />
               </button>

@@ -15,6 +15,24 @@ View your app in AI Studio: https://ai.studio/apps/a20d7ef2-f969-4864-acfe-44a24
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Run the app:
    `npm run dev`
+
+## Deploy to Vercel
+
+This is a static Vite + React single-page app, ready to deploy on Vercel.
+
+**Option A – Dashboard:**
+1. Push this repo to GitHub/GitLab/Bitbucket.
+2. In Vercel, click **Add New → Project** and import the repo.
+3. Vercel auto-detects the settings from `vercel.json` (framework: Vite,
+   build: `npm run build`, output: `dist`). Just click **Deploy**.
+
+**Option B – CLI:**
+```bash
+npm i -g vercel
+vercel        # preview deploy
+vercel --prod # production deploy
+```
+
+No environment variables are required to build or run this app.

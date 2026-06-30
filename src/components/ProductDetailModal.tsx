@@ -44,13 +44,13 @@ export default function ProductDetailModal({
 
   const handleAddToCart = () => {
     onAddToCart(product, selectedSize, selectedColor);
-    setToastMessage(`¡Añadido ${product.name} a la bolsa!`);
+    setToastMessage(`Added ${product.name} to bag!`);
     setTimeout(() => setToastMessage(null), 2500);
   };
 
   const handleWishlistToggle = () => {
     onToggleWishlist(product.id);
-    setToastMessage(isLiked ? "Eliminado de favoritos" : "¡Añadido a favoritos! 🖤");
+    setToastMessage(isLiked ? "Removed from Wishlist" : "Added to Wishlist! 🖤");
     setTimeout(() => setToastMessage(null), 2500);
   };
 
@@ -58,7 +58,7 @@ export default function ProductDetailModal({
     e.preventDefault();
     if (!newText.trim()) return;
 
-    const reviewerName = newName.trim() || "Visitante";
+    const reviewerName = newName.trim() || "Guest Explorer";
     const customReview: Review = {
       id: Math.random().toString(),
       user: reviewerName,
@@ -170,7 +170,7 @@ export default function ProductDetailModal({
                   <span className={`text-[9px] uppercase px-2 py-0.5 rounded-full font-bold tracking-widest text-white ${
                     isKawaii ? 'bg-gradient-to-r from-pink-400 to-rose-400' : 'bg-black'
                   }`}>
-                    NUEVO EN ARCHIVO
+                    NEW IN ARCHIVE
                   </span>
                 )}
                 <span className="text-xs font-semibold text-stone-400 tracking-wider font-mono">
@@ -198,7 +198,7 @@ export default function ProductDetailModal({
                 <div className="flex items-center gap-1 bg-stone-100 px-2.5 py-1 rounded-md text-xs font-bold text-stone-600 font-mono">
                   <Star size={12} className="fill-amber-400 text-amber-400" />
                   <span>{product.rating}</span>
-                  <span className="text-stone-400 font-normal">({product.reviews.length} reseñas)</span>
+                  <span className="text-stone-400 font-normal">({product.reviews.length} reviews)</span>
                 </div>
               </div>
 
@@ -210,7 +210,7 @@ export default function ProductDetailModal({
               {/* Interactive Sizing selector */}
               <div className="mb-6">
                 <h3 className={`text-xs font-bold uppercase mb-2.5 ${isKawaii ? 'text-purple-600' : 'text-stone-900 tracking-wide font-sans'}`}>
-                  Selecciona tu talla
+                  Select Fit Size
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size) => (
@@ -233,7 +233,7 @@ export default function ProductDetailModal({
               {product.colorHexes && product.colorHexes.length > 0 && (
                 <div className="mb-6">
                   <h3 className={`text-xs font-bold uppercase mb-2.5 ${isKawaii ? 'text-purple-600' : 'text-stone-900 tracking-wide'}`}>
-                    Color disponible
+                    Available Shading Hue
                   </h3>
                   <div className="flex gap-2">
                     {product.colorHexes.map((hex) => (
@@ -260,7 +260,7 @@ export default function ProductDetailModal({
               {product.features && product.features.length > 0 && (
                 <div className="mb-8">
                   <h3 className={`text-xs font-bold uppercase mb-3 ${isKawaii ? 'text-purple-600' : 'text-stone-900 tracking-wide'}`}>
-                    Especificaciones y acabados
+                    Specifications & Blueprint finishes
                   </h3>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] sm:text-xs">
                     {product.features.map((feat, i) => (
@@ -276,11 +276,11 @@ export default function ProductDetailModal({
               {/* Customer Comments and Review Section */}
               <div className="border-t border-stone-100 pt-6 mb-6">
                 <h3 className={`text-xs font-bold uppercase mb-4 ${isKawaii ? 'text-pink-600' : 'text-stone-900 tracking-wider'}`}>
-                  Reseñas de clientes
+                  Client Reviews & Critiques
                 </h3>
 
                 {product.reviews.length === 0 ? (
-                  <p className="text-xs text-stone-400 italic mb-6">Aún no hay reseñas. ¡Sé el primero en opinar sobre esta pieza!</p>
+                  <p className="text-xs text-stone-400 italic mb-6">No critiques recorded yet. Become the pioneer to critique this item!</p>
                 ) : (
                   <div className="space-y-4 mb-6 max-h-[180px] overflow-y-auto pr-2 scrollbar-hide">
                     {product.reviews.map((r) => (
@@ -309,18 +309,18 @@ export default function ProductDetailModal({
 
                 {/* Submitting custom Review Form */}
                 <form onSubmit={handleReviewSubmit} className="p-4 rounded-xl border border-dashed border-stone-200 bg-stone-50/50">
-                  <h4 className="text-[11px] font-bold uppercase text-stone-500 mb-2.5">Deja tu reseña</h4>
+                  <h4 className="text-[11px] font-bold uppercase text-stone-500 mb-2.5">Leave Your Custom Critique</h4>
                   <div className="space-y-3">
                     <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="text"
-                        placeholder="Tu nombre (opcional)"
+                        placeholder="Your Name (Optional)"
                         value={newName}
                         onChange={(e) => setNewName(e.target.value)}
                         className="flex-1 text-xs px-3 py-2 border rounded-lg bg-white outline-none focus:border-stone-400 text-stone-800"
                       />
                       <div className="flex items-center gap-1.5 px-3 py-1 bg-white border rounded-lg justify-between">
-                        <span className="text-[10px] text-stone-400 font-bold uppercase">Valoración:</span>
+                        <span className="text-[10px] text-stone-400 font-bold uppercase">Rating:</span>
                         <div className="flex gap-0.5 text-amber-400">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
@@ -339,7 +339,7 @@ export default function ProductDetailModal({
                       <input
                         type="text"
                         required
-                        placeholder="Escribe tu reseña aquí..."
+                        placeholder="Write critique here..."
                         value={newText}
                         onChange={(e) => setNewText(e.target.value)}
                         className="flex-1 text-xs px-3 py-2 border rounded-lg bg-white outline-none focus:border-stone-400 text-stone-800"
@@ -356,7 +356,7 @@ export default function ProductDetailModal({
                     {submitSuccess && (
                       <div className="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
                         <CheckCircle2 size={12} />
-                        <span>¡Reseña enviada correctamente! Añadida al registro.</span>
+                        <span>Critique submitted successfully! Added to records.</span>
                       </div>
                     )}
                   </div>
@@ -373,7 +373,7 @@ export default function ProductDetailModal({
                     ? 'bg-rose-500 text-white border-rose-500 hover:bg-rose-600'
                     : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100'
                 }`}
-                title="Guardar en favoritos"
+                title="Save product to wishlist"
               >
                 <Heart size={18} fill={isLiked ? '#fff' : 'none'} />
               </button>
@@ -386,7 +386,7 @@ export default function ProductDetailModal({
                     : 'bg-stone-950 hover:bg-stone-900 tracking-widest'
                 }`}
               >
-                {isKawaii ? '🧁 ¡Añadir a la Bolsa Dulce!' : 'Añadir a la Bolsa'}
+                {isKawaii ? '🧁 Add to Sweet Bag!' : 'Add to Closet Bag'}
               </button>
             </div>
           </div>

@@ -17,15 +17,8 @@ import CartAndWishlistDrawers from './components/CartAndWishlistDrawers';
 
 export default function App() {
   // 1. STATE INITIALIZATION & SYNC ENGINE
-  const [ageVerified, setAgeVerified] = useState<boolean>(() => {
-    return localStorage.getItem('steagg_age_verified') === 'true';
-  });
-
   const [currentMode, setCurrentMode] = useState<BrandMode>(() => {
     const saved = localStorage.getItem('steagg_mode');
-    const verified = localStorage.getItem('steagg_age_verified') === 'true';
-    // Never restore into the 18+ Kawaii mode without prior age confirmation.
-    if (saved === 'STEAGG_KAWAII' && !verified) return 'STEAGG';
     return (saved as BrandMode) || 'STEAGG';
   });
 
@@ -103,30 +96,6 @@ export default function App() {
 
   // Promo overlays
   const [showPromoPopup, setShowPromoPopup] = useState(false);
-
-  // 18+ age gate for the Kawaii sub-brand
-  const [showAgeGate, setShowAgeGate] = useState(false);
-
-  // Intercept mode changes: entering Kawaii requires age confirmation.
-  const handleModeChange = (mode: BrandMode) => {
-    if (mode === 'STEAGG_KAWAII' && !ageVerified) {
-      setShowAgeGate(true);
-      return;
-    }
-    setCurrentMode(mode);
-  };
-
-  const handleConfirmAge = () => {
-    setAgeVerified(true);
-    localStorage.setItem('steagg_age_verified', 'true');
-    setCurrentMode('STEAGG_KAWAII');
-    setShowAgeGate(false);
-  };
-
-  const handleRejectAge = () => {
-    // Keep the user in whatever mode they were already in.
-    setShowAgeGate(false);
-  };
 
   // Video model active lookbook player
   const [campaignVideoActive, setCampaignVideoActive] = useState(false);
@@ -211,7 +180,7 @@ export default function App() {
   };
 
   const handleDeleteProduct = (productId: string) => {
-    if (window.confirm("¿Eliminar de forma irreversible esta prenda del archivo?")) {
+    if (window.confirm("Perform irreversible subtraction of this apparel from the archives?")) {
       setProducts(prev => prev.filter(p => p.id !== productId));
     }
   };
@@ -262,7 +231,7 @@ export default function App() {
             onClick={() => setShowPromoPopup(true)}
             className="underline ml-1 cursor-pointer hover:text-black hover:scale-105 transition"
           >
-            Reclamar cupón
+            Claim coupon code
           </button>
         </div>
       )}
@@ -270,7 +239,7 @@ export default function App() {
       {/* Main navigation Header bar */}
       <Navbar
         currentMode={currentMode}
-        onModeChange={handleModeChange}
+        onModeChange={setCurrentMode}
         cartCount={cartItems.reduce((acc, c) => acc + c.quantity, 0)}
         wishlistCount={wishlist.length}
         isAdminOpen={isAdminOpen}
@@ -326,7 +295,7 @@ export default function App() {
                       ? 'bg-gradient-to-r from-pink-300 to-rose-300 text-white border-white' 
                       : 'bg-white text-stone-950 border-stone-100'
                   }`}
-                  title="Reproducir el lookbook de la campaña"
+                  title="Play lookbook documentary campaign loop"
                 >
                   <Video size={24} className="ml-0.5 fill-current" />
                 </motion.button>
@@ -341,9 +310,9 @@ export default function App() {
                 isKawaii ? 'bg-purple-50/90 border-purple-150 text-purple-950 text-[10px]' : 'bg-stone-950 border-stone-800 text-stone-100 text-[10px]'
               }`}
             >
-              <span className="font-bold block uppercase mb-1">Look #08 Campaña</span>
+              <span className="font-bold block uppercase mb-1">Look #08 Campaign</span>
               <p className="font-light italic leading-normal text-stone-400">
-                {isKawaii ? 'Tul de fresa combinado con cierres de flores trenzadas a mano.' : 'Chaqueta de lana virgen de doble cara con perfiles de puños abiertos.'}
+                {isKawaii ? 'Strawberry tulle paired with custom hand-wired flower locks.' : 'Double-faced worsted virgin jacket with split cuffs outlines.'}
               </p>
             </motion.div>
           </div>
@@ -351,35 +320,35 @@ export default function App() {
           {/* Campaign narratives */}
           <div className="lg:col-span-7 space-y-6">
             <span className={`text-xs font-bold uppercase tracking-widest ${isKawaii ? 'text-pink-600' : 'text-stone-400'}`}>
-              ◆ CRÓNICAS VANGUARDISTAS
+              ◆ AVANT-GARDE CHRONICLES
             </span>
             <h2 className={`text-3xl sm:text-5xl font-bold uppercase tracking-tight leading-tight ${
               isKawaii ? 'font-kawaii text-rose-500' : 'font-serif text-stone-950'
             }`}>
-              {isKawaii ? 'Campaña Armonía Pastel' : 'El Bucle de la Forma Monolítica'}
+              {isKawaii ? 'Pastel Harmony Campaign' : 'The Monolithic Form Loop'}
             </h2>
             <blockquote className={`border-l-4 pl-4 text-sm sm:text-base italic ${
               isKawaii ? 'border-pink-300 text-purple-950 font-normal' : 'border-stone-900 text-stone-650'
             }`}>
-              "En cada pliegue descubrimos memoria. En cada solapa asimétrica encontramos un horizonte arquitectónico alternativo. La ropa es escultura en traducción."
+              "In each crease we discover memory. In each asymmetrical lapel line we locate an alternative architectural horizon. Clothing is sculpture in translation."
             </blockquote>
             <p className={`text-xs sm:text-sm leading-relaxed ${isKawaii ? 'text-rose-900/80 font-medium' : 'text-stone-500 font-light'}`}>
-              La cápsula Archivo 2026 celebra la metamorfosis de la gabardina natural y las refinadas láminas de organza. Evitamos la moda rápida convencional, seleccionando hilos de tejido único y solapas de pico descentradas a medida. Cada diseño es un refugio duradero de expresión.
+              The 2026 Archive capsule celebrates the metamorphosis of natural gabardine and refined organza fiber sheets. We avoid general standard fast fashion, selecting single-weave threads and custom double-breasted off-centered peak labels. Each design is a durable shelter of expression.
             </p>
 
             {/* micro Campaign stats */}
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-stone-200/50">
               <div>
                 <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-pink-500' : 'text-stone-950'}`}>100%</span>
-                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Gabardina Orgánica</span>
+                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Organic Gabardine</span>
               </div>
               <div>
-                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-purple-500' : 'text-stone-950'}`}>A medida</span>
-                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Acabado Estructural</span>
+                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-purple-500' : 'text-stone-950'}`}>Bespoke</span>
+                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Structural Finish</span>
               </div>
               <div>
-                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-sky-505' : 'text-stone-950'}`}>Limitado</span>
-                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Lanzamientos Numerados</span>
+                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-sky-505' : 'text-stone-950'}`}>Limited</span>
+                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Numbered Drops</span>
               </div>
             </div>
           </div>
@@ -392,10 +361,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h3 className={`text-xs uppercase font-bold tracking-[0.25em] mb-2.5 ${isKawaii ? 'text-pink-500' : 'text-stone-400'}`}>
-              CRÓNICAS DE DISEÑO
+              DESIGNER CHRONICLES
             </h3>
             <h2 className={`text-2xl sm:text-3xl font-bold uppercase ${isKawaii ? 'font-kawaii text-rose-500' : 'font-serif text-stone-950'}`}>
-              {isKawaii ? '🍰 Esenciales Dulces Mágicos' : 'La Matriz Editorial Esencial'}
+              {isKawaii ? '🍰 Magical Sweet Essentials' : 'The Editorial Core Matrix'}
             </h2>
           </div>
 
@@ -412,7 +381,7 @@ export default function App() {
                   <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative">
                     <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
                     <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase rounded">
-                      EXPLORAR DISEÑO
+                      EXPLORE DESIGN
                     </span>
                   </div>
                   <h4 className={`text-base font-bold ${isKawaii ? 'font-kawaii text-rose-955' : 'font-serif text-stone-900'}`}>{item.name}</h4>
@@ -421,7 +390,7 @@ export default function App() {
                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-stone-100">
                   <span className="text-sm font-bold font-mono">${item.price} USD</span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${isKawaii ? 'text-pink-500' : 'text-stone-700'}`}>
-                    <span>ARCHIVO SEGURO</span>
+                    <span>SECURE ARCHIVE</span>
                     <ArrowRight size={11} className="group-hover:translate-x-1.5 transition-transform" />
                   </span>
                 </div>
@@ -463,41 +432,41 @@ export default function App() {
               {isKawaii ? 'ste agg 🍦' : 'STEAGG'}
             </h3>
             <p className="leading-relaxed font-light">
-              Ropa de lujo a medida construida sobre algodón de doble gabardina, drapeados minimalistas y elegantes cápsulas de ensueño acogedoras.
+              Bespoke luxury clothing boundaries built on double gabardine cotton, minimal drapery and elegant cozy sweet dream-capsules.
             </p>
           </div>
           <div>
-            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Accesos de Archivo</h3>
+            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Archival Portals</h3>
             <ul className="space-y-2 font-light">
-              <li><button onClick={handleScrollToShop} className="hover:underline hover:text-white">Ver Todo el Archivo</button></li>
-              <li><button onClick={() => setCurrentMode('STEAGG')} className="hover:underline hover:text-white">Línea Editorial Minimalista</button></li>
-              <li><button onClick={() => handleModeChange('STEAGG_KAWAII')} className="hover:underline hover:text-white">Pasteles Kawaii STE AGG</button></li>
-              <li><button onClick={() => setIsAdminOpen(true)} className="hover:underline hover:text-white">Estudio del Creador</button></li>
+              <li><button onClick={handleScrollToShop} className="hover:underline hover:text-white">Shop Entire Archive</button></li>
+              <li><button onClick={() => setCurrentMode('STEAGG')} className="hover:underline hover:text-white">Editorial Minimalist Line</button></li>
+              <li><button onClick={() => setCurrentMode('STEAGG_KAWAII')} className="hover:underline hover:text-white">STE AGG Kawaii Pastels</button></li>
+              <li><button onClick={() => setIsAdminOpen(true)} className="hover:underline hover:text-white">Owner Creator Studio</button></li>
             </ul>
           </div>
           <div>
-            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Atención y Consultas</h3>
+            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Care & Inquiries</h3>
             <ul className="space-y-2 font-light">
               <li><span className="hover:text-white select-text">support@steagg.com</span></li>
-              <li className="select-text">Teléfono: +1 (800) STE-AGG-8</li>
-              <li><span className="hover:text-white">Guía de Cuidado del Archivo</span></li>
-              <li><span className="hover:text-white">Devoluciones Gratuitas</span></li>
+              <li className="select-text">Phone: +1 (800) STE-AGG-8</li>
+              <li><span className="hover:text-white">Archival Cleansing Guidelines</span></li>
+              <li><span className="hover:text-white">Complimentary Returns</span></li>
             </ul>
           </div>
           <div>
-            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Filosofía de Marca</h3>
+            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Brand Philosophy</h3>
             <p className="leading-relaxed font-light">
-              Creamos archivos de prendas estructurales, no excedente de consumo desechable. Recolectado a mano, ensamblado de forma ética y rastreado con credenciales criptográficas de procedencia digital.
+              We create structural apparel archives, not consumer surplus waste. Hand-harvested, assembled ethically, and tracked with cryptographic digital provenance credentials.
             </p>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-stone-500 font-mono">
-          <span>&copy; 2026 STEAGG COUTURE ARCHIVES. Todos los derechos reservados.</span>
+          <span>&copy; 2026 STEAGG COUTURE ARCHIVES. All intellectual forms reserved.</span>
           <div className="flex gap-4">
-            <span className="hover:text-white cursor-help">Política de cookies</span>
-            <span className="hover:text-white cursor-help">Procedencia digital</span>
-            <span className="hover:text-white cursor-help">Términos y condiciones</span>
+            <span className="hover:text-white cursor-help">Cookie parameters</span>
+            <span className="hover:text-white cursor-help">Digital providences</span>
+            <span className="hover:text-white cursor-help">Terms of Forms</span>
           </div>
         </div>
       </footer>
@@ -558,6 +527,7 @@ export default function App() {
         onClearCart={() => setCartItems([])}
         userAddress={currentUser?.address}
         userPhone={currentUser?.phone}
+        whatsappNumber={branding.whatsappNumber}
       />
 
       {/* 5. GENTLE PROMO POPUP COUPON CLAIM MODULE */}
@@ -587,15 +557,15 @@ export default function App() {
               </button>
               <div className="text-4xl mb-3">🏷️✨</div>
               <h3 className={`text-lg font-bold uppercase mb-2 ${isKawaii ? 'text-pink-500' : 'text-stone-900 font-serif'}`}>
-                {isKawaii ? '🧁 ¡Cupón Dulce Activo!' : 'Código de Archivo Reclamado'}
+                {isKawaii ? '🧁 Sweet Coupon Active!' : 'Archival Code Claimed'}
               </h3>
               <p className="text-xs text-stone-400 leading-relaxed mb-4">
-                Introduce este código de cupón durante el proceso de pago para aplicar un 15% de descuento al instante.
+                Input this voucher code during your checkout processing sequence to apply a 15% discount instantly.
               </p>
               <div className="p-3.5 bg-stone-100 text-stone-850 font-bold font-mono tracking-widest text-base uppercase rounded-xl border border-dashed border-stone-300 mb-5 relative select-all cursor-copy">
                 SWEET15
                 <span className="absolute -top-2.5 -right-2 bg-emerald-500 text-white rounded text-[8px] px-1.5 py-0.5 tracking-normal">
-                  COPIADO
+                  COPIED
                 </span>
               </div>
               <button
@@ -604,7 +574,7 @@ export default function App() {
                   isKawaii ? 'bg-pink-400 hover:bg-pink-500' : 'bg-stone-950 hover:bg-stone-900'
                 }`}
               >
-                cerrar y explorar cápsula
+                close and explore capsule
               </button>
             </motion.div>
           </div>
@@ -647,70 +617,26 @@ export default function App() {
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-stone-950/40 pointer-events-none" />
                 <div className="absolute top-4 left-4 flex gap-2 items-center text-white text-[10px] uppercase font-bold bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md">
                   <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
-                  <span>PASARELA SIMULADA EN BUCLE</span>
+                  <span>SIMULATED RUNWAY LOOP FEED</span>
                 </div>
               </div>
 
               {/* Bottom model caption detail inside lookbook player */}
               <div className="relative z-15 p-6 sm:p-10 text-white space-y-2 mt-auto">
                 <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-stone-400 block">
-                  CRÓNICAS DEL ARCHIVO CÁPSULA
+                  CAPSULE ARCHIVE CHRONICLES
                 </span>
                 <h3 className="font-serif text-lg sm:text-2xl uppercase tracking-wider font-bold">
-                  {isKawaii ? "Campaña Borrador Dulce Elegancia" : "Metamorfosis Vol I: El Drapeado Monolítico"}
+                  {isKawaii ? "Sweet Elegance Draft Campaign" : "Metamorphosis Vol I: The Monolithic Drape"}
                 </h3>
                 <p className="text-xs text-stone-300 max-w-xl font-light leading-relaxed">
-                  Capturada durante el lanzamiento del estudio de archivo en París. Destacando estructuras de algodón de doble gabardina y tul pastel ultraligero por capas, reflejando forma esencial y dulces estéticas en síntesis. Acompañada de pistas personalizadas de sintetizador espacial en bucle.
+                  Captured during the Paris archival studio launch. Spotlighting double gabardine cotton structures and ultra-light layered pastel tulle, reflecting core form and sweet aesthetics in synthesis. Played with customized spatial synthesizer track loops.
                 </p>
                 <button
                   onClick={() => setCampaignVideoActive(false)}
                   className="mt-2 text-xs uppercase font-bold underline hover:text-rose-400 tracking-wider inline-block cursor-pointer"
                 >
-                  Cerrar Proyección Cinematográfica
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* 7. AGE GATE 18+ FOR KAWAII MODE */}
-      <AnimatePresence>
-        {showAgeGate && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-stone-900/70 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              role="dialog"
-              aria-modal="true"
-              className="p-6 sm:p-8 rounded-3xl max-w-sm w-full text-center relative z-10 shadow-2xl bg-white font-kawaii text-rose-950 border-2 border-pink-200"
-            >
-              <div className="text-4xl mb-3">🔞🌸</div>
-              <h3 className="text-lg font-bold uppercase mb-2 text-pink-500">
-                Contenido para mayores de 18
-              </h3>
-              <p className="text-xs text-rose-900/80 leading-relaxed mb-6 font-medium">
-                El modo STE AGG Kawaii está destinado únicamente a usuarios mayores de 18 años. Por favor confirma tu edad para continuar.
-              </p>
-              <div className="flex flex-col gap-3">
-                <button
-                  onClick={handleConfirmAge}
-                  className="w-full py-3 rounded-full text-xs font-bold text-white transition cursor-pointer bg-pink-400 hover:bg-pink-500"
-                >
-                  Sí, soy mayor de 18
-                </button>
-                <button
-                  onClick={handleRejectAge}
-                  className="w-full py-3 rounded-full text-xs font-bold transition cursor-pointer border border-pink-200 text-rose-700 hover:bg-rose-50"
-                >
-                  No, no soy mayor de 18
+                  Terminate Cinematic Projection
                 </button>
               </div>
             </motion.div>

@@ -38,7 +38,7 @@ export default function AppQRSection({ currentMode, settings }: AppQRSectionProp
                 : 'bg-white/10 text-stone-300 border border-white/10'
             }`}>
               <Smartphone size={13} />
-              <span>STEAGG COUTURE DIGITAL</span>
+              <span>STEAGG DIGITAL COUTURE</span>
             </div>
 
             <h2 className={`text-2xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight uppercase leading-tight ${
@@ -60,9 +60,9 @@ export default function AppQRSection({ currentMode, settings }: AppQRSectionProp
                   <Bell size={16} />
                 </span>
                 <div>
-                  <h4 className="text-xs font-bold uppercase">Lanzamientos prioritarios</h4>
+                  <h4 className="text-xs font-bold uppercase">Priority Push Dropping</h4>
                   <p className="text-[11px] text-stone-400 mt-0.5 leading-normal">
-                    Reserva cápsulas exclusivas 15 minutos antes del lanzamiento global en la web.
+                    Secure reservations for custom capsules 15 minutes before global browser launches.
                   </p>
                 </div>
               </div>
@@ -72,9 +72,9 @@ export default function AppQRSection({ currentMode, settings }: AppQRSectionProp
                   <Eye size={16} />
                 </span>
                 <div>
-                  <h4 className="text-xs font-bold uppercase">Espejo RA de armario</h4>
+                  <h4 className="text-xs font-bold uppercase">AR Wardrobe mirror</h4>
                   <p className="text-[11px] text-stone-400 mt-0.5 leading-normal">
-                    Proyecta al instante prendas en alta definición sobre la cámara de tu dispositivo.
+                    Project high-definition drapes draft outlines onto your camera feed instantaneously.
                   </p>
                 </div>
               </div>
@@ -84,9 +84,9 @@ export default function AppQRSection({ currentMode, settings }: AppQRSectionProp
                   <Volume size={16} />
                 </span>
                 <div>
-                  <h4 className="text-xs font-bold uppercase">Audio sincronizado</h4>
+                  <h4 className="text-xs font-bold uppercase">Synced Audio Tracks</h4>
                   <p className="text-[11px] text-stone-400 mt-0.5 leading-normal">
-                    Reproduce piezas de audio personalizadas para cada prenda de tu armario.
+                    Play visualizer audio pieces customized uniquely for garments that exist in your wardrobe.
                   </p>
                 </div>
               </div>
@@ -96,9 +96,9 @@ export default function AppQRSection({ currentMode, settings }: AppQRSectionProp
                   <Download size={16} />
                 </span>
                 <div>
-                  <h4 className="text-xs font-bold uppercase">Propiedad digital</h4>
+                  <h4 className="text-xs font-bold uppercase">Digital Ownership</h4>
                   <p className="text-[11px] text-stone-400 mt-0.5 leading-normal">
-                    Obtén certificados digitales de autenticidad para tu archivo y el seguimiento de reventa.
+                    Acquire digital certificates of authenticity for archives and resale tracking details.
                   </p>
                 </div>
               </div>
@@ -184,10 +184,10 @@ export default function AppQRSection({ currentMode, settings }: AppQRSectionProp
 
               {/* QR instructions */}
               <h4 className={`text-xs font-bold uppercase ${isKawaii ? 'text-pink-600' : 'text-stone-300'}`}>
-                CÓDIGO QR ESCANEABLE
+                SCANNABLE QR DECK
               </h4>
               <p className="text-[10px] text-stone-400 mt-1 leading-normal">
-                Apunta la cámara de tu dispositivo al código de arriba para acceder a la descarga al instante.
+                Aim your device camera outline at the layout above to acquire instant download channels.
               </p>
 
               {/* download indicator links */}

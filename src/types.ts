@@ -48,6 +48,7 @@ export interface BrandingSettings {
   promotionBanner: string;
   qrText: string;
   qrSubtext: string;
+  whatsappNumber: string; // e.g. "573001234567" (country code + number, no + or spaces)
 }
 
 export interface UserProfile {

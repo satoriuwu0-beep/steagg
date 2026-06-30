@@ -38,13 +38,13 @@ export default function AdminDashboard({
   const [prodName, setProdName] = useState("");
   const [prodPrice, setProdPrice] = useState(150);
   const [prodOrigPrice, setProdOrigPrice] = useState("");
-  const [prodCategory, setProdCategory] = useState("Vestidos");
+  const [prodCategory, setProdCategory] = useState("Dresses");
   const [prodDesc, setProdDesc] = useState("");
   const [prodImage, setProdImage] = useState("");
   const [prodBrandMode, setProdBrandMode] = useState<BrandMode>('STEAGG');
   const [prodSizes, setProdSizes] = useState("S,M,L");
   const [prodColors, setProdColors] = useState("#FAF9F6,#E7E5E4");
-  const [prodFeatures, setProdFeatures] = useState("Mezcla de algodón orgánico, Corte minimalista");
+  const [prodFeatures, setProdFeatures] = useState("Organic cotton blend, Minimalist cut");
   const [successMsg, setSuccessMsg] = useState("");
 
   // Branding states
@@ -58,6 +58,7 @@ export default function AdminDashboard({
   const [promotionBanner, setPromotionBanner] = useState(branding.promotionBanner);
   const [qrText, setQrText] = useState(branding.qrText);
   const [qrSubtext, setQrSubtext] = useState(branding.qrSubtext);
+  const [whatsappNumber, setWhatsappNumber] = useState(branding.whatsappNumber || '');
 
   const triggerSuccess = (msg: string) => {
     setSuccessMsg(msg);
@@ -76,9 +77,10 @@ export default function AdminDashboard({
       announcementText,
       promotionBanner,
       qrText,
-      qrSubtext
+      qrSubtext,
+      whatsappNumber
     });
-    triggerSuccess("¡Marca y contenidos guardados correctamente! ✨");
+    triggerSuccess("Branding & Content blocks saved successfully! ✨");
   };
 
   const handleSaveProduct = (e: React.FormEvent) => {
@@ -110,7 +112,7 @@ export default function AdminDashboard({
       };
       onEditProduct(updated);
       setIsEditingId(null);
-      triggerSuccess(`Producto actualizado correctamente: "${prodName}"`);
+      triggerSuccess(`Successfully updated product: "${prodName}"`);
     } else {
       // Add mode
       const newProd: Product = {
@@ -132,7 +134,7 @@ export default function AdminDashboard({
         isFeatured: true
       };
       onAddProduct(newProd);
-      triggerSuccess(`Producto añadido correctamente: "${prodName}"`);
+      triggerSuccess(`Successfully added product: "${prodName}"`);
     }
 
     // Reset fields
@@ -193,8 +195,8 @@ export default function AdminDashboard({
             <div className="flex items-center gap-3">
               <Sliders className="text-rose-400" size={22} />
               <div>
-                <h2 className="font-serif text-lg font-semibold uppercase tracking-wider">Panel del Estudio</h2>
-                <span className="text-[10px] text-stone-400 uppercase tracking-widest">Controles creativos sin código</span>
+                <h2 className="font-serif text-lg font-semibold uppercase tracking-wider">Store Studio Dashboard</h2>
+                <span className="text-[10px] text-stone-400 uppercase tracking-widest">No-Code Creative Controls</span>
               </div>
             </div>
             <button
@@ -216,7 +218,7 @@ export default function AdminDashboard({
               }`}
             >
               <Layout size={14} className="inline mr-2" />
-              Banners y Contenido
+              Banners & Content
             </button>
             <button
               onClick={() => setActiveTab('products')}
@@ -227,7 +229,7 @@ export default function AdminDashboard({
               }`}
             >
               <Tag size={14} className="inline mr-2" />
-              Gestor de Productos
+              Product Manager
             </button>
             <button
               onClick={() => setActiveTab('guidelines')}
@@ -238,7 +240,7 @@ export default function AdminDashboard({
               }`}
             >
               <Layers size={14} className="inline mr-2" />
-              Restablecer y Sistema
+              Reset & System
             </button>
           </div>
 
@@ -257,11 +259,11 @@ export default function AdminDashboard({
             {activeTab === 'content' && (
               <form onSubmit={handleSaveBranding} className="space-y-4">
                 <div className="p-4 bg-white rounded-2xl border border-stone-200/60 shadow-sm space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 pb-2 border-b">Datos de Marca</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 pb-2 border-b">Brand Essentials</h3>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Nombre de marca estándar</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Standard Brand Name</label>
                       <input
                         type="text"
                         value={brandName}
@@ -270,7 +272,7 @@ export default function AdminDashboard({
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Mensaje de barra promocional</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Promo bar message</label>
                       <input
                         type="text"
                         value={promotionBanner}
@@ -281,7 +283,7 @@ export default function AdminDashboard({
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Línea de anuncio superior</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Top Announcement Line</label>
                     <input
                       type="text"
                       value={announcementText}
@@ -292,10 +294,10 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="p-4 bg-white rounded-2xl border border-stone-200/60 shadow-sm space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 pb-2 border-b">Hero Editorial</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 pb-2 border-b">Editorial Lobby Hero</h3>
                   
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Título del Hero</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Hero Title Heading</label>
                     <input
                       type="text"
                       value={heroTitle}
@@ -305,7 +307,7 @@ export default function AdminDashboard({
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Subtítulo del Hero</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Hero Subtitle</label>
                     <textarea
                       rows={2}
                       value={heroSubtitle}
@@ -316,7 +318,7 @@ export default function AdminDashboard({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Eslogan de lujo STEAGG</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">STEAGG Luxury Slogan</label>
                       <input
                         type="text"
                         value={luxurySlogan}
@@ -325,7 +327,7 @@ export default function AdminDashboard({
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Eslogan Kawaii STE AGG</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">STE AGG Kawaii Slogan</label>
                       <input
                         type="text"
                         value={kawaiiSlogan}
@@ -337,10 +339,10 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="p-4 bg-white rounded-2xl border border-stone-200/60 shadow-sm space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 pb-2 border-b">Bloque QR de la App</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 pb-2 border-b">Bottom App QR Banner Block</h3>
                   
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Texto principal de la App</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">App CTA Main Text</label>
                     <input
                       type="text"
                       value={qrText}
@@ -349,7 +351,7 @@ export default function AdminDashboard({
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Descripción de beneficios de la App</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">App Benefits Description</label>
                     <textarea
                       rows={2}
                       value={qrSubtext}
@@ -359,11 +361,28 @@ export default function AdminDashboard({
                   </div>
                 </div>
 
+                <div className="p-4 bg-green-50 rounded-2xl border border-green-200 shadow-sm space-y-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-green-700 pb-2 border-b border-green-200 flex items-center gap-2">
+                    <span>💬</span> WhatsApp Business
+                  </h3>
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase text-green-700 mb-1">Número de WhatsApp (código país + número)</label>
+                    <input
+                      type="text"
+                      value={whatsappNumber}
+                      onChange={(e) => setWhatsappNumber(e.target.value.replace(/[^0-9]/g, ''))}
+                      placeholder="Ej: 573001234567"
+                      className="w-full text-xs px-3 py-2 border border-green-300 rounded-lg focus:border-green-600 outline-none bg-white font-mono"
+                    />
+                    <p className="text-[10px] text-green-600 mt-1">Solo números, sin + ni espacios. Colombia: 57 + número. Ej: 573001234567</p>
+                  </div>
+                </div>
+
                 <button
                   type="submit"
                   className="w-full py-3.5 bg-stone-900 hover:bg-stone-950 text-white font-semibold text-xs rounded-xl shadow-lg transition-all cursor-pointer uppercase tracking-widest"
                 >
-                  Confirmar y aplicar cambios
+                  Confirm and Apply Studio Blocks
                 </button>
               </form>
             )}
@@ -376,7 +395,7 @@ export default function AdminDashboard({
                 <form onSubmit={handleSaveProduct} className="p-5 bg-white border border-stone-200 rounded-2xl shadow-sm space-y-4">
                   <div className="flex items-center justify-between pb-2 border-b">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500">
-                      {isEditingId ? `✏️ Editando producto #${isEditingId}` : '➕ Añadir nuevo producto'}
+                      {isEditingId ? `✏️ Editing Catalog Line #${isEditingId}` : '➕ Add New Archival Pattern'}
                     </h3>
                     {isEditingId && (
                       <button
@@ -384,42 +403,42 @@ export default function AdminDashboard({
                         onClick={handleCancelEdit}
                         className="text-[10px] uppercase underline text-red-500 font-bold"
                       >
-                        Cancelar edición
+                        Cancel Editing
                       </button>
                     )}
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Nombre del producto *</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Product Name *</label>
                       <input
                         type="text"
                         required
-                        placeholder="p. ej., Abrigo de Seda Drapeado"
+                        placeholder="e.g., Silk Draped Overcoat"
                         value={prodName}
                         onChange={(e) => setProdName(e.target.value)}
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Categoría</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Category Category</label>
                       <select
                         value={prodCategory}
                         onChange={(e) => setProdCategory(e.target.value)}
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none bg-white"
                       >
-                        <option value="Vestidos">Vestidos</option>
-                        <option value="Abrigos">Abrigos</option>
-                        <option value="Punto">Punto</option>
-                        <option value="Faldas">Faldas</option>
-                        <option value="Urbano">Urbano</option>
+                        <option value="Dresses">Dresses</option>
+                        <option value="Outerwear">Outerwear</option>
+                        <option value="Knitwear">Knitwear</option>
+                        <option value="Bottoms">Bottoms</option>
+                        <option value="Streetwear">Streetwear</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Precio ($ USD) *</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Pricing ($ USD) *</label>
                       <input
                         type="number"
                         required
@@ -430,7 +449,7 @@ export default function AdminDashboard({
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Precio original (PVP)</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Original Price (MSRP)</label>
                       <input
                         type="number"
                         placeholder="e.g. 190"
@@ -440,20 +459,20 @@ export default function AdminDashboard({
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Canal / Cápsula</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Capsule Channel</label>
                       <select
                         value={prodBrandMode}
                         onChange={(e) => setProdBrandMode(e.target.value as BrandMode)}
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none bg-white font-semibold text-stone-800"
                       >
-                        <option value="STEAGG">STEAGG (Editorial Moderno)</option>
-                        <option value="STEAGG_KAWAII">STE AGG (Modo Kawaii)</option>
+                        <option value="STEAGG">STEAGG (Modern Editorial)</option>
+                        <option value="STEAGG_KAWAII">STE AGG (Cute Kawaii Mode)</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">URL de la imagen *</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Photo Image URL *</label>
                     <input
                       type="url"
                       required
@@ -466,7 +485,7 @@ export default function AdminDashboard({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Tallas (separadas por comas)</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Sizes (comma-separated)</label>
                       <input
                         type="text"
                         value={prodSizes}
@@ -476,7 +495,7 @@ export default function AdminDashboard({
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Colores (hex separados por comas)</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Colors (hex comma slit)</label>
                       <input
                         type="text"
                         value={prodColors}
@@ -488,21 +507,21 @@ export default function AdminDashboard({
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Características / Detalles del tejido</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Fabric specifications / Highlights</label>
                     <input
                       type="text"
                       value={prodFeatures}
                       onChange={(e) => setProdFeatures(e.target.value)}
-                      placeholder="Lana orgánica, Puños asimétricos, Encaje festoneado"
+                      placeholder="Organic wool, Asymmetric cuffs, Scallop lace trims"
                       className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Descripción del catálogo</label>
+                    <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Catalog Description</label>
                     <textarea
                       rows={2}
-                      placeholder="Describe el tejido, la caída y las medidas..."
+                      placeholder="Enter fabric narrative and draping measurements..."
                       value={prodDesc}
                       onChange={(e) => setProdDesc(e.target.value)}
                       className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
@@ -513,13 +532,13 @@ export default function AdminDashboard({
                     type="submit"
                     className="w-full py-3 bg-stone-900 hover:bg-stone-950 text-white font-semibold text-xs rounded-xl shadow transition-all cursor-pointer uppercase tracking-widest"
                   >
-                    {isEditingId ? 'Aplicar cambios ✏️' : 'Añadir al catálogo 📥'}
+                    {isEditingId ? 'Apply Pattern Alterations ✏️' : 'Assemble Pattern into Registry 📥'}
                   </button>
                 </form>
 
                 {/* List layout of Registered Products */}
                 <div className="space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-400">Catálogo actual ({products.length} productos)</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-400">Current Apparel Database ({products.length} registered patterns)</h3>
                   
                   <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
                     {products.map(p => (
@@ -544,14 +563,14 @@ export default function AdminDashboard({
                           <button
                             onClick={() => handleStartEdit(p)}
                             className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 transition"
-                            title="Editar este producto"
+                            title="Edit this apparel"
                           >
                             <Edit2 size={12} />
                           </button>
                           <button
                             onClick={() => onDeleteProduct(p.id)}
                             className="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition"
-                            title="Eliminar producto"
+                            title="Delete patterns"
                           >
                             <Trash2 size={12} />
                           </button>
@@ -567,29 +586,29 @@ export default function AdminDashboard({
             {activeTab === 'guidelines' && (
               <div className="space-y-4">
                 <div className="p-4 bg-white border rounded-2xl space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-rose-500">Precaución / Restablecer de fábrica</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-rose-500">Cautionary / Factory Reset</h3>
                   <p className="text-xs text-stone-400 leading-relaxed font-light">
-                    Si tus productos de prueba, títulos personalizados, comentarios o categorías se desordenan, puedes restaurar todos los datos a la configuración predeterminada de los diseñadores al instante:
+                    If your mock patterns, custom titles, comments, or category alignments become confused, you can restore all structural data metrics to the designers' default settings instantly:
                   </p>
                   <button
                     onClick={() => {
-                      if (window.confirm("¿Restaurar la configuración de fábrica y eliminar todos los productos añadidos? Esta acción no se puede deshacer.")) {
+                      if (window.confirm("Restore factory layouts and remove all added custom items? This cannot be undone.")) {
                         onResetToDefaults();
-                        triggerSuccess("¡Variables personalizadas borradas y modelos originales reinicializados! 🧁");
+                        triggerSuccess("Successfully wiped custom variables and re-initialized pristine models! 🧁");
                       }
                     }}
                     className="w-full py-3.5 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs rounded-xl transition-all cursor-pointer border border-red-200 flex items-center justify-center gap-2"
                   >
                     <RefreshCw size={14} className="animate-spin" />
-                    <span>RESTAURAR MODELOS PREDETERMINADOS</span>
+                    <span>RESTORE RE-INITIALIZED STOCK MODELS</span>
                   </button>
                 </div>
 
                 <div className="p-4 bg-white border border-stone-200 rounded-2xl space-y-3">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-800">Paradigma de estilo visual</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-stone-800">Visual Styling Paradigm</h3>
                   <div className="space-y-2 text-[11px] text-stone-500 leading-normal">
-                    <p>✨ <strong>Modo Editorial (STEAGG):</strong> Tipografía Outfit Sans con titulares en serif Playfair. Perfecto para prendas estructuradas en tonos piedra, carbón y tiza.</p>
-                    <p>🦄 <strong>Modo Kawaii (STE AGG):</strong> Tipografía Fredoka tipo burbuja con capas en rosa pastel, lila y azul bebé. Lazos artesanales e insignias con estrellas.</p>
+                    <p>✨ <strong>Editorial Mode (STEAGG):</strong> Bound with an Outfit Sans font and Playfair serif heading. Perfect for stone, coal, and chalk structured robes.</p>
+                    <p>🦄 <strong>Kawaii Mode (STE AGG):</strong> Styled around a Fredoka bubble font with pastel pink, lilac dust, and baby blue layers. Handcrafted ribbons and star hardware badges.</p>
                   </div>
                 </div>
               </div>
@@ -600,7 +619,7 @@ export default function AdminDashboard({
           {/* Fixed overlay footer */}
           <div className="p-6 bg-stone-100 border-t border-stone-200 text-center">
             <span className="text-[10px] text-stone-400 font-mono tracking-wider">
-Panel de administración STEAGG • Sincronización local activada
+              STEAGG Studio Admin suite • Local Storage Sync Enabled
             </span>
           </div>
 

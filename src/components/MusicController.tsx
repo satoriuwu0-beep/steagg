@@ -15,9 +15,9 @@ interface Track {
 }
 
 const PLAYLIST: Track[] = [
-  { title: "SYNTH COUTURE VANGUARDISTA", artist: "STEAGG SOUNDS", genre: "Minimal Industrial", emoji: "🛰️" },
-  { title: "VUELO MALVAVISCO PASTEL", artist: "SWEET APPAREL INC", genre: "Lofi Kawaii", emoji: "🧁" },
-  { title: "PASEO BAJO LAS LUCES DE SHIBUYA", artist: "STE AGG CO.", genre: "Ritmos Future Bass", emoji: "🍬" }
+  { title: "AVANT-GARDE COUTURE SYNTH", artist: "STEAGG SOUNDS", genre: "Industrial Minimal", emoji: "🛰️" },
+  { title: "PASTEL MARSHMALLOW FLIGHT", artist: "SWEET APPAREL INC", genre: "Kawaii Lofi", emoji: "🧁" },
+  { title: "SHIBUYA STREETLIGHTS WALK", artist: "STE AGG CO.", genre: "Future Bass Beats", emoji: "🍬" }
 ];
 
 export default function MusicController({ currentMode }: MusicControllerProps) {
@@ -83,7 +83,7 @@ export default function MusicController({ currentMode }: MusicControllerProps) {
               ? 'bg-gradient-to-r from-pink-300 via-purple-300 to-sky-300 text-white border-white shadow-rose-200'
               : 'bg-stone-900 border-stone-800 text-stone-100 shadow-stone-950'
           }`}
-          title="Mostrar reproductor de audio"
+          title="Toggle Ambient Audio Deck"
         >
           {isPlaying ? (
             <motion.div
@@ -155,7 +155,7 @@ export default function MusicController({ currentMode }: MusicControllerProps) {
                 <button
                   onClick={() => setIsMuted(!isMuted)}
                   className="p-1 hover:text-stone-300 transition-colors cursor-pointer"
-                  title={isMuted ? "Activar sonido" : "Silenciar"}
+                  title={isMuted ? "Unmute" : "Mute"}
                 >
                   {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
                 </button>
@@ -173,7 +173,7 @@ export default function MusicController({ currentMode }: MusicControllerProps) {
                   <button
                     onClick={() => setTrackIndex((prev) => (prev + 1) % PLAYLIST.length)}
                     className="p-1 hover:text-stone-300 transition-colors cursor-pointer"
-                    title="Siguiente pista"
+                    title="Skip Track"
                   >
                     <SkipForward size={14} />
                   </button>
@@ -184,7 +184,7 @@ export default function MusicController({ currentMode }: MusicControllerProps) {
 
               {isMuted && (
                 <span className="text-[9px] text-red-400 text-center block font-bold uppercase tracking-wide">
-                  audio silenciado
+                  audio outputs muted
                 </span>
               )}
             </motion.div>

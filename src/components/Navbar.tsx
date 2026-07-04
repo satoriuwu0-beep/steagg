@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Heart, ShoppingBag, User, Sliders, ToggleLeft, ToggleRight, Sparkles } from 'lucide-react';
 import { BrandMode, BrandingSettings } from '../types';
+import GoogleAuthButton from './GoogleAuthButton';
 
 interface NavbarProps {
   currentMode: BrandMode;
@@ -124,39 +125,9 @@ export default function Navbar({
             <Sliders size={20} />
           </button>
 
-          {/* User profile / login triggers */}
+          {/* User profile / login triggers — Google Auth */}
           <div className="relative">
-            {user ? (
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={onOpenAuth}
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold cursor-pointer transition-colors border ${
-                    isKawaii 
-                      ? 'bg-purple-200 text-purple-700 border-purple-300' 
-                      : 'bg-stone-200 text-stone-800 border-stone-300'
-                  }`}
-                  title={`Account: ${user.name}`}
-                >
-                  {user.name.charAt(0).toUpperCase()}
-                </button>
-                <button
-                  onClick={onLogout}
-                  className="text-[10px] uppercase text-stone-400 hover:text-stone-900 hidden sm:inline"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={onOpenAuth}
-                className={`p-2 rounded-full transition-all cursor-pointer ${
-                  isKawaii ? 'text-rose-500 hover:bg-rose-100' : 'text-stone-600 hover:bg-stone-100'
-                }`}
-                title="Login / Register"
-              >
-                <User size={20} />
-              </button>
-            )}
+            <GoogleAuthButton isKawaii={isKawaii} />
           </div>
 
           {/* Wishlist Icon */}

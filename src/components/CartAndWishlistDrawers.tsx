@@ -69,7 +69,7 @@ export default function CartAndWishlistDrawers({
   }, 0);
 
   const discountAmount = subtotal * activeDiscountRate;
-  const estimatedShipping = subtotal > 300 || subtotal === 0 ? 0 : 25;
+  const estimatedShipping = 0; // Envío siempre gratis
   const grandTotal = subtotal - discountAmount + estimatedShipping;
 
   const handleApplyPromo = (e: React.FormEvent) => {

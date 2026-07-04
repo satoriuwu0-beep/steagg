@@ -247,6 +247,12 @@ export default function ProductCatalog({
 
         {/* Categories Pills bar */}
         <div className="flex items-center gap-2 overflow-x-auto scroller-hide py-4 mt-2">
+          {/* Kawaii mode: special 🍦 button label */}
+          {isKawaii && (
+            <span className="text-xs font-bold text-pink-500 mr-1 shrink-0 flex items-center gap-1">
+              🍦 <span className="uppercase tracking-widest">Categorías</span>
+            </span>
+          )}
           {categories.map((category) => {
             const isSelected = selectedCategory === category;
             return (

@@ -10,6 +10,7 @@ import Hero from './components/Hero';
 import ProductCatalog from './components/ProductCatalog';
 import ProductDetailModal from './components/ProductDetailModal';
 import AdminDashboard from './components/AdminDashboard';
+import AdminGate from './components/AdminGate';
 import MusicController from './components/MusicController';
 import AppQRSection from './components/AppQRSection';
 import AuthModal from './components/AuthModal';
@@ -93,6 +94,28 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  // Admin gate via URL hash (#admin)
+  const [showAdminGate, setShowAdminGate] = useState(false);
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#admin') {
+        setShowAdminGate(true);
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
+  const handleAdminUnlock = () => {
+    setShowAdminGate(false);
+    setIsAdminOpen(true);
+    window.history.pushState('', document.title, window.location.pathname);
+  };
+  const handleAdminGateClose = () => {
+    setShowAdminGate(false);
+    window.history.pushState('', document.title, window.location.pathname);
+  };
 
   // Promo overlays
   const [showPromoPopup, setShowPromoPopup] = useState(false);
@@ -221,21 +244,6 @@ export default function App() {
         ? 'bg-[#fff5f6] font-kawaii selection:bg-pink-200 selection:text-pink-700' 
         : 'bg-stone-50 font-sans selection:bg-stone-250 selection:bg-stone-200 selection:text-stone-900'
     }`}>
-      {/* Top promotion bar alerts - triggers from admin customizable blocks */}
-      {branding.promotionBanner && (
-        <div className={`text-center py-2 px-4 text-[10px] sm:text-xs font-semibold tracking-wider flex items-center justify-center gap-2 shrink-0 select-none ${
-          isKawaii ? 'bg-purple-100 text-purple-700' : 'bg-stone-100 text-stone-850 border-b border-stone-200/40'
-        }`}>
-          <span>⚡ {branding.promotionBanner}</span>
-          <button
-            onClick={() => setShowPromoPopup(true)}
-            className="underline ml-1 cursor-pointer hover:text-black hover:scale-105 transition"
-          >
-            Claim coupon code
-          </button>
-        </div>
-      )}
-
       {/* Main navigation Header bar */}
       <Navbar
         currentMode={currentMode}
@@ -486,6 +494,14 @@ export default function App() {
       />
 
       {/* 2. ADMIN STUDIO PANEL */}
+      {/* Admin Gate - password protection via /#admin URL */}
+      {showAdminGate && (
+        <AdminGate
+          onUnlock={handleAdminUnlock}
+          onClose={handleAdminGateClose}
+        />
+      )}
+
       <AdminDashboard
         products={products}
         onAddProduct={handleAddProduct}

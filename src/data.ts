@@ -11,7 +11,7 @@ export const INITIAL_BRANDING: BrandingSettings = {
   promotionBanner: "SEASON SPECIAL: REVEAL INNER SOFTNESS WITH 15% OFF ALL CORE STE AGG KNITS. CODE: SWEET15",
   qrText: "DOWNLOAD THE STEAGG APP FOR ARCHIVAL DROPS",
   qrSubtext: "Gain instant priority reservations, augmented-reality fitting suites, and custom sound pieces synced to each launch.",
-  whatsappNumber: "573001234567" // ← CAMBIA ESTO por tu número real (código país + número, sin +)
+  whatsappNumber: "573004833531"
 };
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -258,5 +258,5 @@ export const INITIAL_PRODUCTS: Product[] = [
   }
 ];
 
-export const CATEGORIES_STEAGG = ["All Items", "Outerwear", "Knitwear", "Dresses"];
-export const CATEGORIES_KAWAII = ["All Items", "Dresses", "Knitwear", "Streetwear", "Bottoms"];
+export const CATEGORIES_STEAGG = ["All Items", "Dark", "Sport", "Elegant", "Cosplay", "Día a día"];
+export const CATEGORIES_KAWAII = ["All Items", "Erotic", "Kawaii", "Sweet", "Dark vs Light"];

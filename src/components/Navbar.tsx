@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { Heart, ShoppingBag, User, Sliders, ToggleLeft, ToggleRight, Sparkles } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Heart, ShoppingBag, User, Sliders, ToggleLeft, ToggleRight, Sparkles, Menu } from 'lucide-react';
 import { BrandMode, BrandingSettings } from '../types';
 import GoogleAuthButton from './GoogleAuthButton';
 
@@ -14,9 +14,12 @@ interface NavbarProps {
   onOpenAuth: () => void;
   onOpenCart: () => void;
   onOpenWishlist: () => void;
-  user: { name: string; email: string } | null;
   onLogout: () => void;
+  user: { name: string; email: string } | null;
   settings: BrandingSettings;
+  categories: string[];
+  selectedCategory: string;
+  onSelectCategory: (cat: string) => void;
 }
 
 export default function Navbar({
@@ -31,9 +34,24 @@ export default function Navbar({
   onOpenWishlist,
   user,
   onLogout,
-  settings
+  settings,
+  categories,
+  selectedCategory,
+  onSelectCategory
 }: NavbarProps) {
   const isKawaii = currentMode === 'STEAGG_KAWAII';
+  const [isCatOpen, setIsCatOpen] = useState(false);
+  const catRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (catRef.current && !catRef.current.contains(e.target as Node)) {
+        setIsCatOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
 
   return (
     <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-all duration-500 ${
@@ -41,32 +59,88 @@ export default function Navbar({
         ? 'bg-rose-50/80 border-rose-100 font-kawaii shadow-[0_4px_20px_rgba(251,113,133,0.1)]' 
         : 'bg-stone-50/80 border-stone-200/50 font-sans'
     }`}>
-      {/* Top Banner / Announcement */}
-      <div className={`text-[10px] sm:text-xs text-center py-2 px-4 transition-all duration-500 uppercase tracking-widest ${
-        isKawaii 
-          ? 'bg-rose-100 text-rose-600 font-semibold' 
-          : 'bg-stone-900 text-stone-100'
-      }`}>
-        <div className="flex items-center justify-center gap-2">
-          {isKawaii && <Sparkles size={12} className="animate-pulse" />}
-          <span>{settings.announcementText}</span>
-          {isKawaii && <Sparkles size={11} className="animate-pulse" />}
-        </div>
-      </div>
+      {/* Scrolling phrases ticker banner */}
+      {(() => {
+        const phrases = [
+          "Tu outfit habla antes que tú — asegúrate de que diga algo interesante",
+          "La ropa no cambia el mundo, pero cambia cómo te sientes mientras lo haces",
+          "Vestirse bien es una forma de buena educación",
+          "No es vanidad, es arquitectura personal",
+          "El estilo es saber quién eres sin tener que decirlo",
+          "Compra menos, elige mejor, hazlo durar",
+          "La moda pasa, el estilo permanece — tú decides cuál ser",
+          "Hoy es un buen día para un outfit que no necesita explicación",
+        ];
+        const ticker = [...phrases, ...phrases].join("   ✦   ");
+        return (
+          <div className={`overflow-hidden text-[10px] sm:text-xs py-2 uppercase tracking-widest whitespace-nowrap ${
+            isKawaii ? 'bg-rose-100 text-rose-600 font-semibold' : 'bg-stone-900 text-stone-100'
+          }`}>
+            <div className="inline-block animate-[marquee_40s_linear_infinite]">
+              {ticker}&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;{ticker}
+            </div>
+            <style>{`
+              @keyframes marquee {
+                0%   { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+            `}</style>
+          </div>
+        );
+      })()}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
         {/* Left: Brand Toggle & Navigation */}
         <div className="flex items-center gap-4 sm:gap-6">
-          <nav className="hidden md:flex items-center gap-6 text-sm uppercase tracking-wider font-medium">
-            <span 
-              className={`cursor-pointer transition-colors ${
-                isKawaii ? 'text-rose-500 hover:text-rose-600' : 'text-stone-600 hover:text-stone-950'
+          {/* Category menu hamburger */}
+          <div className="relative" ref={catRef}>
+            <button
+              onClick={() => setIsCatOpen(!isCatOpen)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-full border text-xs font-semibold uppercase tracking-widest cursor-pointer transition-all ${
+                isKawaii
+                  ? 'border-rose-200 text-rose-600 hover:bg-rose-50 bg-white'
+                  : 'border-stone-300 text-stone-700 hover:bg-stone-100 bg-white'
               }`}
-              onClick={() => onModeChange('STEAGG')}
+              title="Categorías"
             >
-              Editorial
-            </span>
-          </nav>
+              {isKawaii ? '🍦' : <Menu size={15} />}
+              <span className="hidden sm:inline">
+                {selectedCategory === 'All Items' ? 'Categorías' : selectedCategory}
+              </span>
+            </button>
+
+            <AnimatePresence>
+              {isCatOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
+                  className={`absolute left-0 top-full mt-2 min-w-[180px] rounded-2xl shadow-xl border z-50 overflow-hidden ${
+                    isKawaii ? 'bg-white border-rose-100' : 'bg-white border-stone-100'
+                  }`}
+                >
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => { onSelectCategory(cat); setIsCatOpen(false); }}
+                      className={`w-full text-left px-4 py-2.5 text-xs font-medium uppercase tracking-widest transition-colors cursor-pointer ${
+                        selectedCategory === cat
+                          ? isKawaii
+                            ? 'bg-rose-400 text-white'
+                            : 'bg-stone-900 text-white'
+                          : isKawaii
+                            ? 'text-rose-700 hover:bg-rose-50'
+                            : 'text-stone-700 hover:bg-stone-50'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Special STE AGG cute pastel button tab replacing "COMMUNITY" */}
           <motion.button

@@ -237,6 +237,12 @@ export default function App() {
 
   // Active Categories lists depending on style layout
   const categoriesList = isKawaii ? CATEGORIES_KAWAII : CATEGORIES_STEAGG;
+  const [selectedCategory, setSelectedCategory] = useState("All Items");
+
+  // Reset category when mode changes
+  useEffect(() => {
+    setSelectedCategory("All Items");
+  }, [currentMode]);
 
   return (
     <div className={`min-h-screen flex flex-col justify-between transition-colors duration-500 overflow-x-hidden ${
@@ -261,6 +267,9 @@ export default function App() {
           localStorage.removeItem('steagg_user');
         }}
         settings={branding}
+        categories={categoriesList}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
       />
 
       {/* Immersive cinematic first-fold Lobby Hero */}
@@ -417,6 +426,8 @@ export default function App() {
         wishlist={wishlist}
         onAddToCart={handleAddToCart}
         categories={categoriesList}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
       />
 
       {/* Bottom App Scannable QR Section */}

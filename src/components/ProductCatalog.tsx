@@ -11,6 +11,8 @@ interface ProductCatalogProps {
   wishlist: string[];
   onAddToCart: (product: Product, size: string, color: string) => void;
   categories: string[];
+  selectedCategory: string;
+  onSelectCategory: (cat: string) => void;
 }
 
 export default function ProductCatalog({
@@ -20,12 +22,13 @@ export default function ProductCatalog({
   onToggleWishlist,
   wishlist,
   onAddToCart,
-  categories
+  categories,
+  selectedCategory,
+  onSelectCategory
 }: ProductCatalogProps) {
   const isKawaii = currentMode === 'STEAGG_KAWAII';
 
   // State filters
-  const [selectedCategory, setSelectedCategory] = useState("All Items");
   const [searchQuery, setSearchQuery] = useState("");
   const [maxPrice, setMaxPrice] = useState(500);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -229,7 +232,7 @@ export default function ProductCatalog({
                       setSelectedSize(null);
                       setMaxPrice(500);
                       setSearchQuery("");
-                      setSelectedCategory("All Items");
+                      onSelectCategory("All Items");
                     }}
                     className={`px-5 py-3 rounded-full text-xs font-bold transition-all hover:shadow-sm cursor-pointer ${
                       isKawaii
@@ -258,7 +261,7 @@ export default function ProductCatalog({
             return (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => onSelectCategory(category)}
                 className={`px-5 py-2 rounded-full text-xs font-medium cursor-pointer transition-all shrink-0 uppercase tracking-widest ${
                   isSelected
                     ? isKawaii
@@ -283,7 +286,7 @@ export default function ProductCatalog({
           <span className="text-xs text-stone-400">Try loosening your style parameters or resetting active filters.</span>
           <button
             onClick={() => {
-              setSelectedCategory("All Items");
+              onSelectCategory("All Items");
               setSelectedSize(null);
               setMaxPrice(500);
               setSearchQuery("");

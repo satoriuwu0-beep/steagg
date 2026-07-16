@@ -300,7 +300,7 @@ export default function ProductCatalog({
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-6 sm:gap-x-8">
-          {filteredProducts.map((product) => {
+          {filteredProducts.map((product, index) => {
             const isLiked = wishlist.includes(product.id);
             const secondaryImage = product.gallery && product.gallery[1] ? product.gallery[1] : product.image;
             const isHovered = hoveredCardId === product.id;
@@ -309,9 +309,11 @@ export default function ProductCatalog({
               <motion.div
                 key={product.id}
                 layout
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: (index % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4 }}
                 onClick={() => onProductClick(product)}
                 onMouseEnter={() => setHoveredCardId(product.id)}
                 onMouseLeave={() => setHoveredCardId(null)}

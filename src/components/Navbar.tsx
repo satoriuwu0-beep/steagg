@@ -76,7 +76,7 @@ export default function Navbar({
           <div className={`overflow-hidden text-[10px] sm:text-xs py-2 uppercase tracking-widest whitespace-nowrap ${
             isKawaii ? 'bg-rose-100 text-rose-600 font-semibold' : 'bg-stone-900 text-stone-100'
           }`}>
-            <div className="inline-block animate-[marquee_40s_linear_infinite]">
+            <div className="inline-block animate-[marquee_70s_linear_infinite]">
               {ticker}&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;{ticker}
             </div>
             <style>{`

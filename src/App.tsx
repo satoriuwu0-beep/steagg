@@ -281,13 +281,24 @@ export default function App() {
       />
 
       {/* ==================== LOOKBOOK CAMPAIGN BLOCK ==================== */}
-      <section className={`py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-colors duration-500 ${
-        isKawaii ? 'bg-rose-50/10' : ''
-      }`}>
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className={`py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-colors duration-500 ${
+          isKawaii ? 'bg-rose-50/10' : ''
+        }`}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Campaign graphics imagery */}
-          <div className="lg:col-span-5 relative">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative"
+          >
             <div className={`aspect-[4/5] rounded-3xl overflow-hidden relative shadow-2xl border-2 ${
               isKawaii ? 'border-pink-200 shadow-pink-100/50' : 'border-stone-850 border-stone-900 shadow-stone-950/20'
             }`}>
@@ -371,32 +382,48 @@ export default function App() {
           </div>
 
         </div>
-      </section>
+      </motion.section>
 
       {/* ==================== THREE FEATURED HIGHLIGHTS ==================== */}
-      <section className={`py-14 sm:py-20 transition-colors duration-500 ${isKawaii ? 'bg-purple-50/30' : 'bg-stone-50/50 border-y border-stone-200/40'}`}>
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className={`py-14 sm:py-20 transition-colors duration-500 ${isKawaii ? 'bg-purple-50/30' : 'bg-stone-50/50 border-y border-stone-200/40'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
             <h3 className={`text-xs uppercase font-bold tracking-[0.25em] mb-2.5 ${isKawaii ? 'text-pink-500' : 'text-stone-400'}`}>
               DESIGNER CHRONICLES
             </h3>
             <h2 className={`text-2xl sm:text-3xl font-bold uppercase ${isKawaii ? 'font-kawaii text-rose-500' : 'font-serif text-stone-950'}`}>
               {isKawaii ? '🍰 Magical Sweet Essentials' : 'The Editorial Core Matrix'}
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {products.filter(p => p.brandMode === currentMode && p.isFeatured).slice(0, 3).map((item) => (
-              <div
+            {products.filter(p => p.brandMode === currentMode && p.isFeatured).slice(0, 3).map((item, i) => (
+              <motion.div
                 key={item.id}
+                initial={{ opacity: 0, y: 36 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 onClick={() => setSelectedProduct(item)}
-                className={`group cursor-pointer rounded-2xl p-4 border bg-white shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between ${
+                className={`group cursor-pointer rounded-2xl p-4 border bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${
                   isKawaii ? 'border-pink-100 hover:border-pink-300' : 'border-stone-205/30 border-stone-200 hover:border-stone-400'
                 }`}
               >
                 <div>
                   <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative">
-                    <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+                    <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                     <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase rounded">
                       EXPLORE DESIGN
                     </span>
@@ -411,11 +438,11 @@ export default function App() {
                     <ArrowRight size={11} className="group-hover:translate-x-1.5 transition-transform" />
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Main Catalog hub: Interactive and customizable grids */}
       <ProductCatalog

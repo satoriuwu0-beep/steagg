@@ -33,6 +33,7 @@ export default function ProductDetailModal({
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0] || "M");
   const [selectedColor, setSelectedColor] = useState(product.colorHexes[0] || "");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // Review state form
   const [newRating, setNewRating] = useState(5);
@@ -110,19 +111,26 @@ export default function ProductDetailModal({
 
           {/* Left / Top Side: Immersive Photo Slider */}
           <div className="w-full md:w-1/2 h-1/2 md:h-full relative bg-stone-100 flex flex-col">
-            <div className="flex-1 relative overflow-hidden">
-              <img
+            <div className="flex-1 relative overflow-hidden cursor-zoom-in" onClick={() => setLightboxOpen(true)}>
+              <motion.img
+                key={activeImageIndex}
                 src={product.gallery && product.gallery[activeImageIndex] ? product.gallery[activeImageIndex] : product.image}
                 alt={product.name}
                 referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-500"
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
+              <div className="absolute bottom-3 right-3 bg-black/40 text-white text-[9px] px-2 py-1 rounded-full backdrop-blur-sm uppercase tracking-widest pointer-events-none">
+                Tap to expand
+              </div>
 
               {/* Gallery side switch triggers */}
               {product.gallery && product.gallery.length > 1 && (
                 <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
                   <button
-                    onClick={() => setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : product.gallery.length - 1))}
+                    onClick={(e) => { e.stopPropagation(); setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : product.gallery.length - 1)); }}
                     className={`p-1.5 rounded-full shadow-md backdrop-blur-md cursor-pointer pointer-events-auto transition-transform hover:scale-110 ${
                       isKawaii ? 'bg-white/80 text-rose-600' : 'bg-black/40 text-stone-50'
                     }`}
@@ -409,6 +417,38 @@ export default function ProductDetailModal({
           )}
         </AnimatePresence>
       </div>
+
+      {/* ── Lightbox: full-screen image expand on click ── */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-sm flex items-center justify-center cursor-zoom-out"
+            onClick={() => setLightboxOpen(false)}
+          >
+            <motion.img
+              initial={{ scale: 0.88, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.88, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              src={product.gallery && product.gallery[activeImageIndex] ? product.gallery[activeImageIndex] : product.image}
+              alt={product.name}
+              referrerPolicy="no-referrer"
+              className="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={() => setLightboxOpen(false)}
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center cursor-pointer transition-all"
+            >
+              <X size={20} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </AnimatePresence>
   );
 }

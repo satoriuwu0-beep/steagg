@@ -91,7 +91,7 @@ export default function CartAndWishlistDrawers({
       return `• ${line.product.name} (Talla: ${line.item.size}, Color: ${colorName}) x${line.item.quantity} — $${(line.product.price * line.item.quantity)} USD`;
     }).join('\n');
 
-    const discountLine = promoApplied ? `\n🏷️ Descuento SWEET15 (-15%): -$${discountAmount.toFixed(0)} USD` : '';
+    const discountLine = promoApplied ? `\n🏷️ Descuento SWEET15 (-15%): -${new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(discountAmount*4000)} USD` : '';
     const shippingLine = estimatedShipping === 0 ? 'Envío: GRATIS 🎁' : `Envío: $${estimatedShipping} USD`;
 
     const message = `🛍️ *NUEVO PEDIDO — STEAGG*
@@ -105,7 +105,7 @@ ${shippingAddress}
 ${itemsList}
 
 ${shippingLine}${discountLine}
-💰 *TOTAL: $${grandTotal.toFixed(0)} USD*
+💰 *TOTAL: ${new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(grandTotal*4000)}*
 
 Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
 

@@ -15,6 +15,11 @@ import MusicController from './components/MusicController';
 import AppQRSection from './components/AppQRSection';
 import AuthModal from './components/AuthModal';
 import CartAndWishlistDrawers from './components/CartAndWishlistDrawers';
+import ModaCircularPage from './components/ModaCircularPage';
+
+// Formateador de precios en pesos colombianos
+const formatCOP = (n: number) =>
+  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n * 4000);
 
 export default function App() {
   // 1. STATE INITIALIZATION & SYNC ENGINE
@@ -97,6 +102,7 @@ export default function App() {
 
   // Admin gate via URL hash (#admin)
   const [showAdminGate, setShowAdminGate] = useState(false);
+  const [showCircularPage, setShowCircularPage] = useState(false);
   useEffect(() => {
     const checkHash = () => {
       if (window.location.hash === '#admin') {
@@ -250,6 +256,18 @@ export default function App() {
         ? 'bg-[#fff5f6] font-kawaii selection:bg-pink-200 selection:text-pink-700' 
         : 'bg-stone-50 font-sans selection:bg-stone-250 selection:bg-stone-200 selection:text-stone-900'
     }`}>
+
+      {/* Botón oculto para activar desde Navbar */}
+      <button id="moda-circular-trigger" className="hidden" onClick={() => setShowCircularPage(true)} />
+
+      {/* Página Moda Circular (overlay de pantalla completa) */}
+      <AnimatePresence>
+        {showCircularPage && (
+          <div className="fixed inset-0 z-[100] bg-white overflow-y-auto">
+            <ModaCircularPage onBack={() => setShowCircularPage(false)} isKawaii={isKawaii} />
+          </div>
+        )}
+      </AnimatePresence>
       {/* Main navigation Header bar */}
       <Navbar
         currentMode={currentMode}
@@ -457,7 +475,103 @@ export default function App() {
         onSelectCategory={setSelectedCategory}
       />
 
-      {/* ==================== MODA CIRCULAR ==================== */}
+      {/* ==================== SECCIÓN ÍNTIMA KAWAII ==================== */}
+      {isKawaii && (
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7 }}
+          className="py-20 bg-gradient-to-b from-[#fff5f6] to-rose-50/50"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-8">
+            {/* Título */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <span className="text-xs uppercase tracking-widest font-bold text-rose-400 block mb-2">🌸 Colección Especial</span>
+              <h2 className="text-3xl sm:text-5xl font-kawaii font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400">
+                Íntima Kawaii ✨
+              </h2>
+              <p className="text-stone-400 text-sm mt-3 max-w-md mx-auto leading-relaxed">
+                Piezas dulces y delicadas para los momentos más especiales. Diseñadas para sentirte hermosa desde adentro.
+              </p>
+            </motion.div>
+
+            {/* Categorías íntimas */}
+            <div className="flex flex-wrap gap-3 justify-center mb-10">
+              {['Toda la colección', 'Lencería suave', 'Pijamas kawaii', 'Bodys dulces', 'Sets coordinados'].map((cat, i) => (
+                <motion.button key={cat}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider cursor-pointer transition-all border ${
+                    i === 0
+                      ? 'bg-rose-400 text-white border-rose-400 shadow-md shadow-rose-200'
+                      : 'bg-white text-rose-500 border-rose-200 hover:bg-rose-50'
+                  }`}
+                >
+                  {cat}
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Grid íntima */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {[
+                { name: 'Set Seda Rosa', price: 320000, img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80', tag: '🌸 Nuevo' },
+                { name: 'Pijama Ositos', price: 185000, img: 'https://images.unsplash.com/photo-1566479179817-16c41bc84994?w=600&auto=format&fit=crop&q=80', tag: '🐻 Top' },
+                { name: 'Body Encaje Suave', price: 240000, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4b4927?w=600&auto=format&fit=crop&q=80', tag: '✨ Exclusivo' },
+                { name: 'Set Flores Pastel', price: 295000, img: 'https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=600&auto=format&fit=crop&q=80', tag: '🌷 Favorito' },
+              ].map((item, i) => (
+                <motion.div key={item.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  whileHover={{ y: -5 }}
+                  className="group bg-white rounded-2xl border border-rose-100 shadow-sm hover:shadow-xl transition-all cursor-pointer overflow-hidden"
+                >
+                  <div className="aspect-[3/4] overflow-hidden relative">
+                    <img src={item.img} alt={item.name} referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
+                    <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] font-bold text-rose-500">
+                      {item.tag}
+                    </span>
+                    <button className="absolute bottom-2 right-2 bg-rose-400 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all cursor-pointer shadow-lg">
+                      <ShoppingBag size={14}/>
+                    </button>
+                  </div>
+                  <div className="p-3">
+                    <h4 className="font-bold text-xs text-rose-900 font-kawaii">{item.name}</h4>
+                    <p className="text-rose-500 font-bold text-sm mt-1">
+                      {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(item.price)}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-10">
+              <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                onClick={() => setSelectedCategory('All Items')}
+                className="px-8 py-4 bg-gradient-to-r from-rose-400 to-pink-400 text-white rounded-full font-bold uppercase tracking-widest text-sm cursor-pointer shadow-lg shadow-rose-200 hover:shadow-rose-300 transition-all">
+                🌸 Ver toda la colección íntima
+              </motion.button>
+            </div>
+          </div>
+        </motion.section>
+      )}
+
+      {/* Moda Circular y Fundación — solo en modo editorial */}
+      {!isKawaii && (<>
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -522,13 +636,14 @@ export default function App() {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
+                onClick={() => setShowCircularPage(true)}
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold uppercase tracking-widest cursor-pointer transition-all ${
                   isKawaii
                     ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-white shadow-lg shadow-green-200'
                     : 'bg-emerald-500 hover:bg-emerald-400 text-stone-950'
                 }`}
               >
-                <span>Explorar colección circular</span>
+                <span>♻️ Explorar Colección Circular</span>
                 <ArrowRight size={14} />
               </motion.button>
             </motion.div>
@@ -646,6 +761,7 @@ export default function App() {
         <div className="absolute top-10 left-10 text-6xl opacity-5 select-none pointer-events-none">♻️</div>
         <div className="absolute bottom-10 right-10 text-6xl opacity-5 select-none pointer-events-none">🌱</div>
       </motion.section>
+      </>)}
 
       {/* Bottom App Scannable QR Section */}
       <AppQRSection

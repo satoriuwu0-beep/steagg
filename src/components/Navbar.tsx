@@ -142,22 +142,20 @@ export default function Navbar({
             </AnimatePresence>
           </div>
 
-          {/* Fundación button */}
-          <a
-            href="#fundacion"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('fundacion-section')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-full border text-xs font-semibold uppercase tracking-widest cursor-pointer transition-all ${
-              isKawaii
-                ? 'border-green-200 text-green-600 hover:bg-green-50 bg-white'
-                : 'border-emerald-300 text-emerald-700 hover:bg-emerald-50 bg-white'
-            }`}
-          >
-            <span>🌱</span>
-            <span className="hidden sm:inline">Fundación</span>
-          </a>
+          {/* Botón Moda Circular — solo en modo editorial */}
+          {!isKawaii && (
+            <a
+              href="#moda-circular"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('moda-circular-trigger')?.click();
+              }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full border text-xs font-semibold uppercase tracking-widest cursor-pointer transition-all border-emerald-300 text-emerald-700 hover:bg-emerald-50 bg-white"
+            >
+              <span>♻️</span>
+              <span className="hidden sm:inline">Moda Circular</span>
+            </a>
+          )}
 
           {/* Special STE AGG cute pastel button tab replacing "COMMUNITY" */}
           <motion.button

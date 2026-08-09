@@ -76,7 +76,7 @@ export default function Navbar({
           <div className={`overflow-hidden text-[10px] sm:text-xs py-2 uppercase tracking-widest whitespace-nowrap ${
             isKawaii ? 'bg-rose-100 text-rose-600 font-semibold' : 'bg-stone-900 text-stone-100'
           }`}>
-            <div className="inline-block animate-[marquee_70s_linear_infinite]">
+            <div className="inline-block animate-[marquee_100s_linear_infinite]">
               {ticker}&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;{ticker}
             </div>
             <style>{`
@@ -141,6 +141,23 @@ export default function Navbar({
               )}
             </AnimatePresence>
           </div>
+
+          {/* Fundación button */}
+          <a
+            href="#fundacion"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('fundacion-section')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-full border text-xs font-semibold uppercase tracking-widest cursor-pointer transition-all ${
+              isKawaii
+                ? 'border-green-200 text-green-600 hover:bg-green-50 bg-white'
+                : 'border-emerald-300 text-emerald-700 hover:bg-emerald-50 bg-white'
+            }`}
+          >
+            <span>🌱</span>
+            <span className="hidden sm:inline">Fundación</span>
+          </a>
 
           {/* Special STE AGG cute pastel button tab replacing "COMMUNITY" */}
           <motion.button

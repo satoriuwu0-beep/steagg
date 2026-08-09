@@ -457,6 +457,196 @@ export default function App() {
         onSelectCategory={setSelectedCategory}
       />
 
+      {/* ==================== MODA CIRCULAR ==================== */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.7 }}
+        className={`py-20 sm:py-28 relative overflow-hidden ${isKawaii ? 'bg-rose-50/40' : 'bg-stone-950'}`}
+      >
+        {/* Background texture */}
+        <div className={`absolute inset-0 ${isKawaii ? 'opacity-10' : 'opacity-5'}`}>
+          <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 20% 50%, #4ade80 0%, transparent 50%), radial-gradient(circle at 80% 20%, #86efac 0%, transparent 40%)'}} />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left: text */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">♻️</span>
+                <span className={`text-xs font-bold uppercase tracking-[0.3em] ${isKawaii ? 'text-green-500' : 'text-emerald-400'}`}>
+                  Nueva sección
+                </span>
+              </div>
+
+              <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold uppercase leading-tight ${
+                isKawaii ? 'font-kawaii text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500' : 'font-serif text-white'
+              }`}>
+                Moda<br/>Circular
+              </h2>
+
+              <p className={`text-lg sm:text-xl leading-relaxed font-light ${isKawaii ? 'text-green-800' : 'text-emerald-300'}`}>
+                Cada prenda tiene una historia.<br/>
+                <span className="font-semibold">Nosotros le damos una segunda.</span>
+              </p>
+
+              <p className={`text-sm leading-relaxed ${isKawaii ? 'text-stone-600' : 'text-stone-400'}`}>
+                Creemos que la moda no debería tener fecha de vencimiento. Por eso seleccionamos, restauramos y reimaginamos prendas de segunda mano con el mismo estándar editorial que nuestra colección principal. Ropa modificada, intervenida, transformada — porque el estilo verdadero no se descarta, se reinventa.
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 pt-4">
+                {[
+                  { icon: '👗', label: 'Segunda vida', desc: 'Prendas seleccionadas' },
+                  { icon: '✂️', label: 'Modificada', desc: 'Intervenida con estilo' },
+                  { icon: '🌿', label: 'Consciente', desc: 'Moda responsable' },
+                ].map(({ icon, label, desc }) => (
+                  <div key={label} className={`rounded-2xl p-4 text-center border ${
+                    isKawaii ? 'bg-white border-green-100' : 'bg-stone-900 border-stone-800'
+                  }`}>
+                    <div className="text-2xl mb-2">{icon}</div>
+                    <div className={`text-xs font-bold uppercase tracking-wider ${isKawaii ? 'text-green-700' : 'text-emerald-400'}`}>{label}</div>
+                    <div className={`text-[10px] mt-0.5 ${isKawaii ? 'text-stone-400' : 'text-stone-500'}`}>{desc}</div>
+                  </div>
+                ))}
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className={`flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-bold uppercase tracking-widest cursor-pointer transition-all ${
+                  isKawaii
+                    ? 'bg-gradient-to-r from-green-400 to-emerald-400 text-white shadow-lg shadow-green-200'
+                    : 'bg-emerald-500 hover:bg-emerald-400 text-stone-950'
+                }`}
+              >
+                <span>Explorar colección circular</span>
+                <ArrowRight size={14} />
+              </motion.button>
+            </motion.div>
+
+            {/* Right: visual collage */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="relative h-[500px] hidden lg:block"
+            >
+              <div className="absolute top-0 left-0 w-[55%] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9?w=600&auto=format&fit=crop&q=80" alt="Moda circular ropa segunda mano" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+              </div>
+              <div className="absolute bottom-0 right-0 w-[50%] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
+                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&auto=format&fit=crop&q=80" alt="Ropa modificada intervenida" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+              </div>
+              <div className={`absolute top-[38%] right-[12%] px-4 py-3 rounded-2xl shadow-xl text-xs font-bold border ${
+                isKawaii ? 'bg-white border-green-100 text-green-700' : 'bg-stone-900 border-emerald-800 text-emerald-400'
+              }`}>
+                ♻️ +500 prendas<br/>
+                <span className="font-normal text-stone-400">con nueva oportunidad</span>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ==================== FUNDACIÓN ==================== */}
+      <motion.section
+        id="fundacion-section"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.7 }}
+        className={`py-20 sm:py-28 relative overflow-hidden ${isKawaii ? 'bg-purple-50/30' : 'bg-white'}`}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-8"
+          >
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">En construcción · Únete</span>
+            </div>
+
+            <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold uppercase leading-tight ${
+              isKawaii ? 'font-kawaii text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-400' : 'font-serif text-stone-950'
+            }`}>
+              Moda que<br/>transforma vidas
+            </h2>
+
+            <p className={`text-xl sm:text-2xl leading-relaxed max-w-2xl mx-auto ${isKawaii ? 'text-purple-700' : 'text-stone-500'} font-light`}>
+              "Queremos que cada prenda que no llega a nuestra vitrina<br className="hidden sm:block"/>
+              <span className="font-semibold text-stone-900"> llegue a quien más la necesita."</span>
+            </p>
+
+            <p className={`text-sm sm:text-base leading-relaxed max-w-xl mx-auto ${isKawaii ? 'text-stone-500' : 'text-stone-400'}`}>
+              Estamos buscando activamente aliarnos con fundaciones que compartan nuestra visión: seleccionamos las mejores prendas para nuestra colección y las que no cumplen el estándar editorial las donamos — no las descartamos. La moda sostenible no es una tendencia, es una decisión.
+            </p>
+
+            {/* Three pillars */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+              {[
+                { icon: '🔍', title: 'Selección rigurosa', desc: 'Evaluamos cada prenda con criterio editorial y social.' },
+                { icon: '🤝', title: 'Alianzas reales', desc: 'Queremos construir con fundaciones comprometidas.' },
+                { icon: '💚', title: 'Impacto medible', desc: 'Cada donación tiene nombre, historia y destinatario.' },
+              ].map(({ icon, title, desc }, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={`rounded-2xl p-6 border text-left ${
+                    isKawaii ? 'bg-white border-purple-100' : 'bg-stone-50 border-stone-200'
+                  }`}
+                >
+                  <div className="text-3xl mb-3">{icon}</div>
+                  <h4 className={`font-bold text-sm uppercase tracking-wide mb-1 ${isKawaii ? 'text-purple-700' : 'text-stone-900'}`}>{title}</h4>
+                  <p className="text-xs text-stone-400 leading-relaxed">{desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className={`flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest cursor-pointer shadow-lg ${
+                  isKawaii
+                    ? 'bg-gradient-to-r from-purple-400 to-emerald-400 text-white'
+                    : 'bg-stone-950 text-white hover:bg-stone-800'
+                }`}
+              >
+                <span>🌱 Quiero ser aliado</span>
+              </motion.button>
+              <p className="text-xs text-stone-400">
+                ¿Tienes una fundación? Escríbenos.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Decorative background elements */}
+        <div className="absolute top-10 left-10 text-6xl opacity-5 select-none pointer-events-none">♻️</div>
+        <div className="absolute bottom-10 right-10 text-6xl opacity-5 select-none pointer-events-none">🌱</div>
+      </motion.section>
+
       {/* Bottom App Scannable QR Section */}
       <AppQRSection
         currentMode={currentMode}

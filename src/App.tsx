@@ -343,7 +343,7 @@ export default function App() {
                 {isKawaii ? 'Strawberry tulle paired with custom hand-wired flower locks.' : 'Double-faced worsted virgin jacket with split cuffs outlines.'}
               </p>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* Campaign narratives */}
           <div className="lg:col-span-7 space-y-6">

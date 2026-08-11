@@ -123,7 +123,7 @@ export default function ProductDetailModal({
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
               <div className="absolute bottom-3 right-3 bg-black/40 text-white text-[9px] px-2 py-1 rounded-full backdrop-blur-sm uppercase tracking-widest pointer-events-none">
-                Tap to expand
+                Toca para ampliar
               </div>
 
               {/* Gallery side switch triggers */}
@@ -169,7 +169,7 @@ export default function ProductDetailModal({
             )}
           </div>
 
-          {/* Right / Bottom Side: Content Details & Custom Reviews (Scrollable) */}
+          {/* Right / Bottom Side: Content Details & Custom Reseñas (Scrollable) */}
           <div className="w-full md:w-1/2 h-1/2 md:h-full p-6 sm:p-8 overflow-y-auto flex flex-col justify-between">
             <div>
               {/* Hot label badge */}
@@ -210,7 +210,7 @@ export default function ProductDetailModal({
                 </div>
               </div>
 
-              {/* Description explanation */}
+              {/* Descripción explanation */}
               <p className={`text-xs sm:text-sm leading-relaxed mb-6 font-light ${isKawaii ? 'text-rose-900/85' : 'text-stone-600'}`}>
                 {product.description}
               </p>
@@ -284,7 +284,7 @@ export default function ProductDetailModal({
               {/* Customer Comments and Review Section */}
               <div className="border-t border-stone-100 pt-6 mb-6">
                 <h3 className={`text-xs font-bold uppercase mb-4 ${isKawaii ? 'text-pink-600' : 'text-stone-900 tracking-wider'}`}>
-                  Client Reviews & Critiques
+                  Client Reseñas & Critiques
                 </h3>
 
                 {product.reviews.length === 0 ? (

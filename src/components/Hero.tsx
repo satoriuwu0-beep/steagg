@@ -91,7 +91,7 @@ export default function Hero({ currentMode, onExploreClick, settings, onOpenProm
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className={`text-[10px] uppercase font-bold tracking-[0.25em] text-white ${isKawaii ? 'font-kawaii' : 'font-sans'}`}>
-            {isKawaii ? '✨ STE AGG Sweet Edition' : '✦ Limited Curated Capsule'}
+            {isKawaii ? '✨ STE AGG Edición Dulce' : '✦ Colección Limitada Curada'}
           </span>
         </motion.div>
 
@@ -119,7 +119,7 @@ export default function Hero({ currentMode, onExploreClick, settings, onOpenProm
                 : 'font-serif tracking-[0.1em] text-white'
             }`}
           >
-            {isKawaii ? 'Pastel Heaven ✨' : settings.heroTitle}
+            {isKawaii ? 'Paraíso Pastel ✨' : settings.heroTitle}
           </motion.h1>
         </div>
 
@@ -152,7 +152,7 @@ export default function Hero({ currentMode, onExploreClick, settings, onOpenProm
                 : 'bg-white hover:bg-stone-100 text-stone-950 font-sans tracking-widest uppercase'
             }`}
           >
-            <span>{isKawaii ? '🍰 Explore Dream Closet' : 'DISCOVER CAPSULE'}</span>
+            <span>{isKawaii ? '🍰 Explorar Colección' : 'DESCUBRIR COLECCIÓN'}</span>
             <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform" />
           </motion.button>
 
@@ -165,7 +165,7 @@ export default function Hero({ currentMode, onExploreClick, settings, onOpenProm
             }`}
           >
             <Sparkle size={14} className="animate-spin duration-[3000ms]" />
-            <span>{isKawaii ? '🍭 View Special Code' : 'ACQUIRE ENTRANCE CODE'}</span>
+            <span>{isKawaii ? '🍭 Ver Código Especial' : 'OBTENER CÓDIGO DE ACCESO'}</span>
           </motion.button>
         </motion.div>
       </motion.div>
@@ -180,7 +180,7 @@ export default function Hero({ currentMode, onExploreClick, settings, onOpenProm
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
           className={`flex flex-col items-center gap-1 ${isKawaii ? 'text-rose-400' : 'text-stone-500'}`}
         >
-          <span className="text-[9px] uppercase tracking-[0.25em] font-bold">SCROLL</span>
+          <span className="text-[9px] uppercase tracking-[0.25em] font-bold">BAJA</span>
           <ChevronDown size={14} />
         </motion.div>
       </motion.div>

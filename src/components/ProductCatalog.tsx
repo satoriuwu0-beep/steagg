@@ -7,7 +7,7 @@ interface ProductCatalogProps {
   products: Product[];
   currentMode: BrandMode;
   onProductClick: (product: Product) => void;
-  onToggleWishlist: (productId: string) => void;
+  onToggleFavoritos: (productId: string) => void;
   wishlist: string[];
   onAddToCart: (product: Product, size: string, color: string) => void;
   categories: string[];
@@ -19,7 +19,7 @@ export default function ProductCatalog({
   products,
   currentMode,
   onProductClick,
-  onToggleWishlist,
+  onToggleFavoritos,
   wishlist,
   onAddToCart,
   categories,
@@ -47,7 +47,7 @@ export default function ProductCatalog({
       if (product.brandMode !== currentMode) return false;
 
       // Category filter
-      if (selectedCategory !== "All Items" && product.category !== selectedCategory) return false;
+      if (selectedCategory !== "Todos" && product.category !== selectedCategory) return false;
 
       // Price limit
       if (product.price > maxPrice) return false;
@@ -85,11 +85,11 @@ export default function ProductCatalog({
     showNotification(`Added ${product.name} (${defaultSize}) to your Bag!`);
   };
 
-  const handleWishlistClick = (e: React.MouseEvent, productId: string, name: string) => {
+  const handleFavoritosClick = (e: React.MouseEvent, productId: string, name: string) => {
     e.stopPropagation();
-    onToggleWishlist(productId);
+    onToggleFavoritos(productId);
     const isNowLiked = !wishlist.includes(productId);
-    showNotification(isNowLiked ? `Added ${name} to Wishlist! 🖤` : `Removed ${name} from Wishlist`);
+    showNotification(isNowLiked ? `Added ${name} to Favoritos! 🖤` : `Removed ${name} from Favoritos`);
   };
 
   return (
@@ -99,7 +99,7 @@ export default function ProductCatalog({
       
       {/* Search and Filters Hub */}
       <div className="mb-10 sm:mb-14">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-stone-250/20">
+        <div className="flex flex-col md:flex-row md:artículos-center justify-between gap-6 pb-6 border-b border-stone-250/20">
           
           {/* Section Headers */}
           <div>
@@ -116,7 +116,7 @@ export default function ProductCatalog({
           </div>
 
           {/* Search bar inside header */}
-          <div className="flex items-center gap-3 w-full md:w-auto max-w-md">
+          <div className="flex artículos-center gap-3 w-full md:w-auto max-w-md">
             <div className={`relative flex-1 min-w-[200px] border rounded-full overflow-hidden transition-all duration-300 ${
               isKawaii 
                 ? 'border-rose-250 bg-white/70 focus-within:border-pink-400 focus-within:ring-2 focus-within:ring-pink-100' 
@@ -143,7 +143,7 @@ export default function ProductCatalog({
             {/* Filters toggle */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-semibold cursor-pointer transition-all ${
+              className={`flex artículos-center gap-2 px-4 py-2.5 rounded-full border text-xs font-semibold cursor-pointer transition-all ${
                 isKawaii
                   ? 'border-purple-200 text-purple-700 bg-purple-50 hover:bg-purple-100'
                   : 'border-stone-300 text-stone-700 hover:bg-stone-50'
@@ -202,7 +202,7 @@ export default function ProductCatalog({
 
                 {/* Price cap sliding filter */}
                 <div>
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex artículos-center justify-between mb-3">
                     <h4 className={`text-xs font-bold uppercase ${isKawaii ? 'text-pink-600' : 'text-stone-900 tracking-wider'}`}>
                       Maximum Pricing Tier
                     </h4>
@@ -232,7 +232,7 @@ export default function ProductCatalog({
                       setSelectedSize(null);
                       setMaxPrice(500);
                       setSearchQuery("");
-                      onSelectCategory("All Items");
+                      onSelectCategory("Todos");
                     }}
                     className={`px-5 py-3 rounded-full text-xs font-bold transition-all hover:shadow-sm cursor-pointer ${
                       isKawaii
@@ -249,10 +249,10 @@ export default function ProductCatalog({
         </AnimatePresence>
 
         {/* Categories Pills bar */}
-        <div className="flex items-center gap-2 overflow-x-auto scroller-hide py-4 mt-2">
+        <div className="flex artículos-center gap-2 overflow-x-auto scroller-hide py-4 mt-2">
           {/* Kawaii mode: special 🍦 button label */}
           {isKawaii && (
-            <span className="text-xs font-bold text-pink-500 mr-1 shrink-0 flex items-center gap-1">
+            <span className="text-xs font-bold text-pink-500 mr-1 shrink-0 flex artículos-center gap-1">
               🍦 <span className="uppercase tracking-widest">Categorías</span>
             </span>
           )}
@@ -281,12 +281,12 @@ export default function ProductCatalog({
 
       {/* Grid Container */}
       {filteredProducts.length === 0 ? (
-        <div className="text-center py-24 border border-dashed border-stone-200 rounded-2xl flex flex-col items-center justify-center bg-stone-50/50">
+        <div className="text-center py-24 border border-dashed border-stone-200 rounded-2xl flex flex-col artículos-center justify-center bg-stone-50/50">
           <p className="text-lg text-stone-500 font-light italic mb-2">No archive patterns registered in this dimension...</p>
           <span className="text-xs text-stone-400">Try loosening your style parameters or resetting active filters.</span>
           <button
             onClick={() => {
-              onSelectCategory("All Items");
+              onSelectCategory("Todos");
               setSelectedSize(null);
               setMaxPrice(500);
               setSearchQuery("");
@@ -337,7 +337,7 @@ export default function ProductCatalog({
 
                   {/* Hot labels badges */}
                   <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
-                    {product.isNew && (
+                    {product.isNuevo && (
                       <span className={`text-[9px] uppercase px-2 py-1 rounded-full font-bold tracking-widest text-white shadow-sm ${
                         isKawaii ? 'bg-gradient-to-r from-pink-400 to-rose-400' : 'bg-black'
                       }`}>
@@ -354,7 +354,7 @@ export default function ProductCatalog({
                   {/* Quick-action Floating buttons */}
                   <div className="absolute bottom-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                     <button
-                      onClick={(e) => handleWishlistClick(e, product.id, product.name)}
+                      onClick={(e) => handleFavoritosClick(e, product.id, product.name)}
                       className={`p-2 rounded-full cursor-pointer shadow-lg backdrop-blur-md transition-all hover:scale-110 ${
                         isLiked
                           ? 'bg-rose-500 text-white'
@@ -381,9 +381,9 @@ export default function ProductCatalog({
                 <div className="px-1 flex-1 flex flex-col justify-between">
                   <div>
                     {/* Tiny category / model rating info */}
-                    <div className="flex items-center justify-between text-[10px] text-stone-400 uppercase tracking-widest mb-1">
+                    <div className="flex artículos-center justify-between text-[10px] text-stone-400 uppercase tracking-widest mb-1">
                       <span>{product.category}</span>
-                      <span className="flex items-center gap-0.5 font-semibold text-stone-600 font-mono">
+                      <span className="flex artículos-center gap-0.5 font-semibold text-stone-600 font-mono">
                         <Star size={10} className="fill-amber-400 text-amber-400" />
                         {product.rating}
                       </span>
@@ -413,7 +413,7 @@ export default function ProductCatalog({
                     </div>
 
                     {/* Colors & Price bottom section */}
-                    <div className="flex items-end justify-between pt-1 border-t border-stone-100">
+                    <div className="flex artículos-end justify-between pt-1 border-t border-stone-100">
                       {/* Interactive little color circles */}
                       <div className="flex gap-1">
                         {product.colorHexes.map((hex) => (
@@ -427,7 +427,7 @@ export default function ProductCatalog({
                       </div>
 
                       {/* Pricing block */}
-                      <div className={`flex items-center gap-2 font-semibold ${isKawaii ? 'font-kawaii' : 'font-mono'}`}>
+                      <div className={`flex artículos-center gap-2 font-semibold ${isKawaii ? 'font-kawaii' : 'font-mono'}`}>
                         {product.originalPrice && (
                           <span className="text-xs text-stone-400 line-through font-normal">
                             ${product.originalPrice}
@@ -453,7 +453,7 @@ export default function ProductCatalog({
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className={`fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-3 border ${
+            className={`fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-2xl text-xs font-semibold flex artículos-center gap-3 border ${
               isKawaii 
                 ? 'bg-rose-50 border-rose-200 text-rose-700 font-kawaii shadow-pink-100' 
                 : 'bg-stone-950 border-stone-800 text-stone-50 font-sans'

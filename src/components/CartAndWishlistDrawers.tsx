@@ -72,13 +72,13 @@ export default function CartAndWishlistDrawers({
   const estimatedShipping = 0; // Envío siempre gratis
   const grandTotal = subtotal - discountAmount + estimatedShipping;
 
-  const handleApplyPromo = (e: React.FormEvent) => {
+  const handleAplicarPromo = (e: React.FormEvent) => {
     e.preventDefault();
     if (promoCode.trim().toUpperCase() === "SWEET15") {
       setActiveDiscountRate(0.15);
       setPromoApplied(true);
     } else {
-      alert("Invalid archive voucher code. Try 'SWEET15'");
+      alert("Código inválido. Prueba con 'SWEET15'");
     }
   };
 
@@ -88,11 +88,12 @@ export default function CartAndWishlistDrawers({
     // Build WhatsApp message with order details
     const itemsList = cartLines.map(line => {
       const colorName = line.item.color;
-      return `• ${line.product.name} (Talla: ${line.item.size}, Color: ${colorName}) x${line.item.quantity} — $${(line.product.price * line.item.quantity)} USD`;
+      const priceFmt = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(line.product.price * line.item.quantity);
+      return `• ${line.product.name} (Talla: ${line.item.size}, Color: ${colorName}) x${line.item.quantity} — ${priceFmt}`;
     }).join('\n');
 
-    const discountLine = promoApplied ? `\n🏷️ Descuento SWEET15 (-15%): -${new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(discountAmount*4000)} USD` : '';
-    const shippingLine = estimatedShipping === 0 ? 'Envío: GRATIS 🎁' : `Envío: $${estimatedShipping} USD`;
+    const discountLine = promoApplied ? `\n🏷️ Descuento SWEET15 (-15%): -${new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(discountAmount)}` : '';
+    const shippingLine = estimatedShipping === 0 ? 'Envío: GRATIS 🎁' : `Envío: ${new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(estimatedShipping)}`;
 
     const message = `🛍️ *NUEVO PEDIDO — STEAGG*
 
@@ -105,9 +106,9 @@ ${shippingAddress}
 ${itemsList}
 
 ${shippingLine}${discountLine}
-💰 *TOTAL: ${new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(grandTotal*4000)}*
+💰 *TOTAL: ${new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(grandTotal)}*
 
-Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
+¡Gracias! Por favor confirma disponibilidad 😊`;
 
     const encodedMessage = encodeURIComponent(message);
     const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
@@ -152,7 +153,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                 <div className="flex items-center gap-2.5">
                   <ShoppingBag size={18} className={isKawaii ? 'text-pink-500' : 'text-stone-700'} />
                   <h3 className={`text-base font-bold uppercase ${isKawaii ? 'text-pink-600 font-extrabold' : 'tracking-wider font-serif text-stone-950'}`}>
-                    {isKawaii ? '🍦 Sweet Goods Cupboard' : 'Closet Capsule Bag'}
+                    {isKawaii ? '🍦 Mi Carrito Dulce' : 'Mi Carrito'}
                   </h3>
                   <span className="text-xs bg-stone-105 bg-stone-200 text-stone-750 px-2.5 py-0.5 rounded-full font-bold">
                     {cartItems.length}
@@ -178,7 +179,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                       {isKawaii ? '🧁🎉🦄' : '🖤🎁✨'}
                     </motion.div>
                     <h3 className={`text-xl font-bold uppercase ${isKawaii ? 'text-pink-500' : 'text-stone-900 font-serif'}`}>
-                      {isKawaii ? 'Order Secured & Sealed!' : 'Order Dispatched to Archive'}
+                      {isKawaii ? '¡Pedido Confirmado! 🎉' : '¡Pedido Enviado! 🎉'}
                     </h3>
                     <p className="text-xs text-stone-400 max-w-xs leading-relaxed font-light">
                       Receipt has been allocated. Our bespoke tailored courier service is assembling your high-fashion selections immediately.
@@ -190,14 +191,14 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                 ) : checkoutStep === 'details' ? (
                   /* STEP 2 IN CART: Shipping billing Form details */
                   <form onSubmit={handleProcessOrder} className="space-y-4">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 pb-1 border-b">Courier Specifications</h4>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 pb-1 border-b">Datos de Envío</h4>
                     
                     <div>
-                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Addressee Name *</label>
+                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Nombre completo *</label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Amélie Valentin"
+                        placeholder="Ej. María García"
                         value={shippingName}
                         onChange={(e) => setShippingName(e.target.value)}
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
@@ -205,11 +206,11 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                     </div>
 
                     <div>
-                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Contact Phone *</label>
+                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Teléfono de contacto *</label>
                       <input
                         type="tel"
                         required
-                        placeholder="+33 6 00 00 00 00"
+                        placeholder="Ej. 300 123 4567"
                         value={shippingPhone}
                         onChange={(e) => setShippingPhone(e.target.value)}
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
@@ -217,13 +218,13 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                     </div>
 
                     <div>
-                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Shipping Destination Address *</label>
+                      <label className="block text-[10px] text-stone-405 font-bold uppercase mb-1">Dirección de envío *</label>
                       <textarea
                         rows={3}
                         required
                         value={shippingAddress}
                         onChange={(e) => setShippingAddress(e.target.value)}
-                        placeholder="Street Address, Postal/ZIP Code, Country location Code"
+                        placeholder="Calle, barrio, ciudad, departamento"
                         className="w-full text-xs px-3 py-2 border rounded-lg focus:border-stone-900 outline-none"
                       />
                     </div>
@@ -242,7 +243,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                           isKawaii ? 'bg-pink-400 hover:bg-pink-500 font-kawaii' : 'bg-stone-900 hover:bg-stone-950 font-sans'
                         }`}
                       >
-                        Finalize Capsule Transaction
+                        Confirmar y enviar pedido por WhatsApp
                       </button>
                     </div>
                   </form>
@@ -250,7 +251,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                   /* Empty state */
                   <div className="flex flex-col items-center justify-center h-4/5 text-center p-6 space-y-4">
                     <span className="text-4xl text-stone-300">🛒</span>
-                    <p className="text-sm text-stone-505 font-light italic">Your shopping cupboard is currently vacant...</p>
+                    <p className="text-sm text-stone-505 font-light italic">Tu carrito está vacío por ahora.</p>
                     <button
                       onClick={onCloseCart}
                       className={`px-6 py-2.5 rounded-full border text-[10px] font-bold uppercase tracking-widest cursor-pointer hover:bg-stone-50 transition-colors ${
@@ -270,7 +271,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                         <button
                           onClick={() => onRemoveFromCart(line.lineId)}
                           className="absolute top-2.5 right-2.5 text-stone-400 hover:text-red-500 p-1 rounded-full cursor-pointer transition-colors"
-                          title="Eliminate coordinates"
+                          title="Eliminar"
                         >
                           <Trash2 size={13} />
                         </button>
@@ -330,10 +331,10 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                 <div className={`p-5 border-t border-stone-200 space-y-4 ${isKawaii ? 'bg-pink-50/70 border-rose-150' : 'bg-stone-50'}`}>
                   
                   {/* Promo coupons inputs */}
-                  <form onSubmit={handleApplyPromo} className="flex gap-2">
+                  <form onSubmit={handleAplicarPromo} className="flex gap-2">
                     <input
                       type="text"
-                      placeholder={isKawaii ? "Sweet Code? (SWEET15)" : "Promo code (SWEET15)"}
+                      placeholder="Código promo (SWEET15)"
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
                       className="flex-1 text-xs px-3.5 py-2 border rounded-full bg-white max-w-[200px] outline-none"
@@ -344,34 +345,34 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                         isKawaii ? 'bg-pink-400 hover:bg-pink-500 font-kawaii' : 'bg-stone-900 hover:bg-stone-950 font-sans'
                       }`}
                     >
-                      Apply
+                      Aplicar
                     </button>
                   </form>
 
                   {/* Summary math prices */}
                   <div className="space-y-1.5 text-xs text-stone-550 border-b pb-3 border-stone-100">
                     <div className="flex justify-between">
-                      <span className="font-light text-stone-500">Fabric Subtotal</span>
+                      <span className="font-light text-stone-500">Subtotal</span>
                       <span className="font-bold font-mono">${subtotal}</span>
                     </div>
                     {promoApplied && (
                       <div className="flex justify-between text-emerald-600 font-semibold">
                         <span className="flex items-center gap-1">
                           <Ticket size={11} />
-                          <span>Promo SWEET15 (-15%)</span>
+                          <span>Descuento SWEET15 (-15%)</span>
                         </span>
                         <span className="font-mono">-${discountAmount.toFixed(0)}</span>
                       </div>
                     )}
                     <div className="flex justify-between">
-                      <span className="font-light text-stone-500">Insured Cargo Shipping</span>
+                      <span className="font-light text-stone-500">Envío</span>
                       <span className="font-mono">{estimatedShipping === 0 ? 'Complimentary' : `$${estimatedShipping}`}</span>
                     </div>
                   </div>
 
                   <div className="flex justify-between items-end">
                     <div>
-                      <span className="text-[10px] text-stone-400 uppercase font-bold block">Total Summation</span>
+                      <span className="text-[10px] text-stone-400 uppercase font-bold block">TOTAL</span>
                       <span className="text-xl font-bold font-mono text-stone-950">${grandTotal.toFixed(0)} USD</span>
                     </div>
 
@@ -383,7 +384,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                           : 'bg-stone-950 hover:bg-stone-900 tracking-widest uppercase font-sans'
                       }`}
                     >
-                      <span>Express Checkout</span>
+                      <span>Finalizar pedido</span>
                       <ArrowRight size={13} />
                     </button>
                   </div>
@@ -423,7 +424,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                 <div className="flex items-center gap-2.5">
                   <Heart size={18} fill="#f43f5e" className="text-rose-500 border-none" />
                   <h3 className={`text-base font-bold uppercase ${isKawaii ? 'text-pink-600 font-extrabold' : 'tracking-wider font-serif text-stone-950'}`}>
-                    {isKawaii ? '🧁 Wishlist Closet' : 'Archived Passions'}
+                    {isKawaii ? '🧁 Mis Favoritos' : 'Mis Favoritos'}
                   </h3>
                   <span className="text-xs bg-rose-200 text-rose-805 text-rose-700 px-2.5 py-0.5 rounded-full font-bold">
                     {wishlistIds.length}
@@ -463,7 +464,7 @@ Por favor confirmar disponibilidad y método de pago. ¡Gracias!`;
                           <button
                             onClick={() => onToggleWishlist(item.id)}
                             className="absolute top-2.5 right-2.5 text-stone-400 hover:text-red-500 p-1 rounded-full cursor-pointer transition-colors"
-                            title="Eliminate passions"
+                            title="Quitar de favoritos"
                           >
                             <Trash2 size={13} />
                           </button>

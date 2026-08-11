@@ -50,7 +50,7 @@ export default function AdminGate({ onUnlock, onClose }: AdminGateProps) {
           <div className="w-14 h-14 rounded-2xl bg-stone-950 flex items-center justify-center mb-3 shadow-lg">
             <Lock size={24} className="text-white" />
           </div>
-          <h2 className="text-lg font-bold uppercase tracking-widest text-stone-900">Owner Studio</h2>
+          <h2 className="text-lg font-bold uppercase tracking-widest text-stone-900">Panel de Administrador</h2>
           <p className="text-xs text-stone-400 mt-1 text-center">Área restringida. Solo personal autorizado.</p>
         </div>
 
@@ -93,7 +93,7 @@ export default function AdminGate({ onUnlock, onClose }: AdminGateProps) {
         </form>
 
         <p className="text-[10px] text-stone-300 text-center mt-4">
-          steahgg.com · Owner Creator Studio
+          steahgg.com · STEAGG · Panel de Control
         </p>
       </div>
 

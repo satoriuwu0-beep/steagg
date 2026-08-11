@@ -19,7 +19,7 @@ import ModaCircularPage from './components/ModaCircularPage';
 
 // Formateador de precios en pesos colombianos
 const formatCOP = (n: number) =>
-  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n * 4000);
+  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n);
 
 export default function App() {
   // 1. STATE INITIALIZATION & SYNC ENGINE
@@ -118,7 +118,7 @@ export default function App() {
     setIsAdminOpen(true);
     window.history.pushState('', document.title, window.location.pathname);
   };
-  const handleAdminGateClose = () => {
+  const handleAdminGateCerrar = () => {
     setShowAdminGate(false);
     window.history.pushState('', document.title, window.location.pathname);
   };
@@ -341,7 +341,7 @@ export default function App() {
                       ? 'bg-gradient-to-r from-pink-300 to-rose-300 text-white border-white' 
                       : 'bg-white text-stone-950 border-stone-100'
                   }`}
-                  title="Play lookbook documentary campaign loop"
+                  title="Ver video de campaña"
                 >
                   <Video size={24} className="ml-0.5 fill-current" />
                 </motion.button>
@@ -356,9 +356,9 @@ export default function App() {
                 isKawaii ? 'bg-purple-50/90 border-purple-150 text-purple-950 text-[10px]' : 'bg-stone-950 border-stone-800 text-stone-100 text-[10px]'
               }`}
             >
-              <span className="font-bold block uppercase mb-1">Look #08 Campaign</span>
+              <span className="font-bold block uppercase mb-1">Look #08 Campaña</span>
               <p className="font-light italic leading-normal text-stone-400">
-                {isKawaii ? 'Strawberry tulle paired with custom hand-wired flower locks.' : 'Double-faced worsted virgin jacket with split cuffs outlines.'}
+                {isKawaii ? 'Tul fresa con cierres de flores hechos a mano.' : 'Chaqueta virgen worsted de doble cara con puños divididos.'}
               </p>
             </motion.div>
           </motion.div>
@@ -366,20 +366,20 @@ export default function App() {
           {/* Campaign narratives */}
           <div className="lg:col-span-7 space-y-6">
             <span className={`text-xs font-bold uppercase tracking-widest ${isKawaii ? 'text-pink-600' : 'text-stone-400'}`}>
-              ◆ AVANT-GARDE CHRONICLES
+              ◆ CRÓNICAS DE TEMPORADA
             </span>
             <h2 className={`text-3xl sm:text-5xl font-bold uppercase tracking-tight leading-tight ${
               isKawaii ? 'font-kawaii text-rose-500' : 'font-serif text-stone-950'
             }`}>
-              {isKawaii ? 'Pastel Harmony Campaign' : 'The Monolithic Form Loop'}
+              {isKawaii ? 'Campaña Armonía Pastel' : 'La Forma Monolítica'}
             </h2>
             <blockquote className={`border-l-4 pl-4 text-sm sm:text-base italic ${
               isKawaii ? 'border-pink-300 text-purple-950 font-normal' : 'border-stone-900 text-stone-650'
             }`}>
-              "In each crease we discover memory. In each asymmetrical lapel line we locate an alternative architectural horizon. Clothing is sculpture in translation."
+              "En cada pliegue descubrimos memoria. En cada línea asimétrica encontramos un horizonte alternativo. La ropa es escultura en traducción."
             </blockquote>
             <p className={`text-xs sm:text-sm leading-relaxed ${isKawaii ? 'text-rose-900/80 font-medium' : 'text-stone-500 font-light'}`}>
-              The 2026 Archive capsule celebrates the metamorphosis of natural gabardine and refined organza fiber sheets. We avoid general standard fast fashion, selecting single-weave threads and custom double-breasted off-centered peak labels. Each design is a durable shelter of expression.
+              La cápsula 2026 celebra la metamorfosis de la gabardina natural y las láminas refinadas de organza. Evitamos la moda rápida estándar, seleccionando hilos de tejido único y solapas dobles centradas personalizadas. Cada diseño es un refugio duradero de expresión.
             </p>
 
             {/* micro Campaign stats */}
@@ -389,12 +389,12 @@ export default function App() {
                 <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Organic Gabardine</span>
               </div>
               <div>
-                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-purple-500' : 'text-stone-950'}`}>Bespoke</span>
-                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Structural Finish</span>
+                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-purple-500' : 'text-stone-950'}`}>Artesanal</span>
+                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Acabado Estructural</span>
               </div>
               <div>
-                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-sky-505' : 'text-stone-950'}`}>Limited</span>
-                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Numbered Drops</span>
+                <span className={`text-xl sm:text-2xl font-bold block ${isKawaii ? 'text-sky-505' : 'text-stone-950'}`}>Limitado</span>
+                <span className="text-[10px] uppercase text-stone-400 block tracking-widest">Ediciones Numeradas</span>
               </div>
             </div>
           </div>
@@ -418,10 +418,10 @@ export default function App() {
             className="text-center mb-12"
           >
             <h3 className={`text-xs uppercase font-bold tracking-[0.25em] mb-2.5 ${isKawaii ? 'text-pink-500' : 'text-stone-400'}`}>
-              DESIGNER CHRONICLES
+              COLECCIÓN DESTACADA
             </h3>
             <h2 className={`text-2xl sm:text-3xl font-bold uppercase ${isKawaii ? 'font-kawaii text-rose-500' : 'font-serif text-stone-950'}`}>
-              {isKawaii ? '🍰 Magical Sweet Essentials' : 'The Editorial Core Matrix'}
+              {isKawaii ? '🍰 Esenciales Dulces Mágicos' : 'Lo Mejor de la Colección'}
             </h2>
           </motion.div>
 
@@ -443,7 +443,7 @@ export default function App() {
                   <div className="aspect-[4/5] rounded-xl overflow-hidden mb-4 relative">
                     <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                     <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 text-[9px] font-bold tracking-widest uppercase rounded">
-                      EXPLORE DESIGN
+                      VER DETALLE
                     </span>
                   </div>
                   <h4 className={`text-base font-bold ${isKawaii ? 'font-kawaii text-rose-955' : 'font-serif text-stone-900'}`}>{item.name}</h4>
@@ -452,7 +452,7 @@ export default function App() {
                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-stone-100">
                   <span className="text-sm font-bold font-mono">${item.price} USD</span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${isKawaii ? 'text-pink-500' : 'text-stone-700'}`}>
-                    <span>SECURE ARCHIVE</span>
+                    <span>VER PIEZA</span>
                     <ArrowRight size={11} className="group-hover:translate-x-1.5 transition-transform" />
                   </span>
                 </div>
@@ -467,7 +467,7 @@ export default function App() {
         products={products}
         currentMode={currentMode}
         onProductClick={setSelectedProduct}
-        onToggleWishlist={handleToggleWishlist}
+        onToggleFavoritos={handleToggleWishlist}
         wishlist={wishlist}
         onAddToCart={handleAddToCart}
         categories={categoriesList}
@@ -485,7 +485,7 @@ export default function App() {
           className="py-20 bg-gradient-to-b from-[#fff5f6] to-rose-50/50"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-8">
-            {/* Título */}
+            {/* Título "últimas creaciones de Angela" */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -494,17 +494,23 @@ export default function App() {
               className="text-center mb-12"
             >
               <span className="text-xs uppercase tracking-widest font-bold text-rose-400 block mb-2">🌸 Colección Especial</span>
-              <h2 className="text-3xl sm:text-5xl font-kawaii font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400">
-                Íntima Kawaii ✨
+              <h2 className="text-3xl sm:text-5xl leading-tight" style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700 }}>
+                <span className="text-stone-800 uppercase tracking-wider text-2xl sm:text-3xl">últimas creaciones de </span>
+                <span
+                  style={{ fontFamily: '"Great Vibes", cursive', fontWeight: 400, fontSize: 'clamp(2.5rem, 7vw, 5rem)' }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-purple-400 to-pink-300 block sm:inline leading-tight"
+                >
+                  Angela
+                </span>
               </h2>
               <p className="text-stone-400 text-sm mt-3 max-w-md mx-auto leading-relaxed">
-                Piezas dulces y delicadas para los momentos más especiales. Diseñadas para sentirte hermosa desde adentro.
+                Piezas únicas diseñadas con amor. Cada creación es una obra de arte que celebra la femineidad en toda su expresión.
               </p>
             </motion.div>
 
             {/* Categorías íntimas */}
             <div className="flex flex-wrap gap-3 justify-center mb-10">
-              {['Toda la colección', 'Lencería suave', 'Pijamas kawaii', 'Bodys dulces', 'Sets coordinados'].map((cat, i) => (
+              {['Toda la colección', 'Dark & Gothic', 'Rosa & Dulce', 'Elegante', 'Sets completos'].map((cat, i) => (
                 <motion.button key={cat}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -522,46 +528,85 @@ export default function App() {
               ))}
             </div>
 
-            {/* Grid íntima */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-              {[
-                { name: 'Set Seda Rosa', price: 320000, img: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80', tag: '🌸 Nuevo' },
-                { name: 'Pijama Ositos', price: 185000, img: 'https://images.unsplash.com/photo-1566479179817-16c41bc84994?w=600&auto=format&fit=crop&q=80', tag: '🐻 Top' },
-                { name: 'Body Encaje Suave', price: 240000, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4b4927?w=600&auto=format&fit=crop&q=80', tag: '✨ Exclusivo' },
-                { name: 'Set Flores Pastel', price: 295000, img: 'https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=600&auto=format&fit=crop&q=80', tag: '🌷 Favorito' },
-              ].map((item, i) => (
-                <motion.div key={item.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
-                  whileHover={{ y: -5 }}
-                  className="group bg-white rounded-2xl border border-rose-100 shadow-sm hover:shadow-xl transition-all cursor-pointer overflow-hidden"
-                >
-                  <div className="aspect-[3/4] overflow-hidden relative">
-                    <img src={item.img} alt={item.name} referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"/>
-                    <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] font-bold text-rose-500">
-                      {item.tag}
-                    </span>
-                    <button className="absolute bottom-2 right-2 bg-rose-400 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all cursor-pointer shadow-lg">
-                      <ShoppingBag size={14}/>
-                    </button>
-                  </div>
-                  <div className="p-3">
-                    <h4 className="font-bold text-xs text-rose-900 font-kawaii">{item.name}</h4>
-                    <p className="text-rose-500 font-bold text-sm mt-1">
-                      {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(item.price)}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+            {/* Catálogo horizontal con scroll tipo carrusel */}
+            <div className="relative">
+              {/* Sombra izquierda */}
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#fff5f6] to-transparent z-10 pointer-events-none" />
+              {/* Sombra derecha */}
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#fff5f6] to-transparent z-10 pointer-events-none" />
+
+              <motion.div
+                className="flex gap-5 overflow-x-auto pb-6 pt-2 px-4 scroll-smooth"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: 'grab' }}
+                drag="x"
+                dragConstraints={{ left: -900, right: 0 }}
+                whileDrag={{ cursor: 'grabbing' }}
+              >
+                {[
+                  { name: 'Set Dark Gothic', price: 115000, img: '/angela/dark-gothic-set.jpg', tag: '🖤 Dark', desc: 'Set lila con diseños góticos. Bralette + tanga. Exclusivo.' },
+                  { name: 'Baby Doll Mariposas', price: 98000, img: '/angela/pink-butterfly.jpg', tag: '🦋 Dulce', desc: 'Baby doll rosa con encaje y tul estampado de mariposas.' },
+                  { name: 'Camisón Negro Transparente', price: 105000, img: '/angela/black-sheer.jpg', tag: '🌑 Elegante', desc: 'Camisón negro con encaje bordado y lazo de satén.' },
+                  { name: 'Corsé Rojo & Negro', price: 118000, img: '/angela/black-red-corset.jpg', tag: '❤️ Pasión', desc: 'Set con corsé de cordones rojo, ligueros y liga decorativa.' },
+                  { name: 'Set Floral Teal', price: 112000, img: '/angela/teal-floral.jpg', tag: '🌊 Exclusivo', desc: 'Corpiño floral azul teal con tanga y liga artesanal.' },
+                  { name: 'Set Lila Completo', price: 120000, img: '/angela/lilac-set.jpg', tag: '💜 Favorito', desc: 'Set lila 3 piezas con bralette, tanga y ligueros a juego.' },
+                  { name: 'Body Menta Floral', price: 108000, img: '/angela/mint-bodysuit.jpg', tag: '🌿 Nuevo', desc: 'Body de encaje menta con flores bordadas. Pieza de colección.' },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 0.5, delay: i * 0.06 }}
+                    whileHover={{ scale: 1.04, y: -6 }}
+                    className="group bg-white rounded-3xl border border-rose-100 shadow-md hover:shadow-2xl transition-all duration-400 overflow-hidden cursor-pointer flex-shrink-0"
+                    style={{ width: 260 }}
+                  >
+                    <div className="relative overflow-hidden" style={{ height: 340 }}>
+                      <motion.img
+                        src={item.img}
+                        alt={item.name}
+                        className="w-full h-full object-cover object-top"
+                        whileHover={{ scale: 1.08 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-bold text-rose-600 shadow-sm">
+                        {item.tag}
+                      </span>
+                      <motion.button
+                        initial={{ opacity: 0, y: 10 }}
+                        whileHover={{ opacity: 1, y: 0 }}
+                        className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-rose-400 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      >
+                        🛒 Agregar
+                      </motion.button>
+                    </div>
+                    <div className="p-4">
+                      <h4 className="font-bold text-sm text-rose-900 mb-1">{item.name}</h4>
+                      <p className="text-[11px] text-stone-400 leading-relaxed mb-2 line-clamp-2">{item.desc}</p>
+                      <p className="text-rose-500 font-bold text-base">
+                        {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(item.price)}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Hint de scroll */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className="text-center text-xs text-rose-300 mt-2 flex items-center justify-center gap-2"
+              >
+                <span>←</span> <span>desliza para ver más creaciones</span> <span>→</span>
+              </motion.p>
             </div>
 
             {/* CTA */}
             <div className="text-center mt-10">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                onClick={() => setSelectedCategory('All Items')}
+                onClick={() => setSelectedCategory('Todos')}
                 className="px-8 py-4 bg-gradient-to-r from-rose-400 to-pink-400 text-white rounded-full font-bold uppercase tracking-widest text-sm cursor-pointer shadow-lg shadow-rose-200 hover:shadow-rose-300 transition-all">
                 🌸 Ver toda la colección íntima
               </motion.button>
@@ -784,20 +829,20 @@ export default function App() {
               {isKawaii ? 'ste agg 🍦' : 'STEAGG'}
             </h3>
             <p className="leading-relaxed font-light">
-              Bespoke luxury clothing boundaries built on double gabardine cotton, minimal drapery and elegant cozy sweet dream-capsules.
+              Artesanal luxury clothing boundaries built on double gabardine cotton, minimal drapery and elegant cozy sweet dream-capsules.
             </p>
           </div>
           <div>
-            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Archival Portals</h3>
+            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Categorías</h3>
             <ul className="space-y-2 font-light">
               <li><button onClick={handleScrollToShop} className="hover:underline hover:text-white">Shop Entire Archive</button></li>
               <li><button onClick={() => setCurrentMode('STEAGG')} className="hover:underline hover:text-white">Editorial Minimalist Line</button></li>
-              <li><button onClick={() => setCurrentMode('STEAGG_KAWAII')} className="hover:underline hover:text-white">STE AGG Kawaii Pastels</button></li>
+              <li><button onClick={() => setCurrentMode('STEAGG_KAWAII')} className="hover:underline hover:text-white">STE AGG Modo Kawaii</button></li>
               <li><button onClick={() => setIsAdminOpen(true)} className="hover:underline hover:text-white">Owner Creator Studio</button></li>
             </ul>
           </div>
           <div>
-            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Care & Inquiries</h3>
+            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Atención al cliente</h3>
             <ul className="space-y-2 font-light">
               <li><span className="hover:text-white select-text">support@steagg.com</span></li>
               <li className="select-text">Phone: +1 (800) STE-AGG-8</li>
@@ -806,7 +851,7 @@ export default function App() {
             </ul>
           </div>
           <div>
-            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Brand Philosophy</h3>
+            <h3 className={`text-xs font-bold uppercase mb-4 tracking-wider ${isKawaii ? 'text-rose-700' : 'text-stone-100'}`}>Filosofía de la marca</h3>
             <p className="leading-relaxed font-light">
               We create structural apparel archives, not consumer surplus waste. Hand-harvested, assembled ethically, and tracked with cryptographic digital provenance credentials.
             </p>
@@ -842,7 +887,7 @@ export default function App() {
       {showAdminGate && (
         <AdminGate
           onUnlock={handleAdminUnlock}
-          onClose={handleAdminGateClose}
+          onClose={handleAdminGateCerrar}
         />
       )}
 
@@ -917,7 +962,7 @@ export default function App() {
               </button>
               <div className="text-4xl mb-3">🏷️✨</div>
               <h3 className={`text-lg font-bold uppercase mb-2 ${isKawaii ? 'text-pink-500' : 'text-stone-900 font-serif'}`}>
-                {isKawaii ? '🧁 Sweet Coupon Active!' : 'Archival Code Claimed'}
+                {isKawaii ? '🧁 ¡Código Dulce Activado!' : 'Código Reclamado'}
               </h3>
               <p className="text-xs text-stone-400 leading-relaxed mb-4">
                 Input this voucher code during your checkout processing sequence to apply a 15% discount instantly.
@@ -987,7 +1032,7 @@ export default function App() {
                   CAPSULE ARCHIVE CHRONICLES
                 </span>
                 <h3 className="font-serif text-lg sm:text-2xl uppercase tracking-wider font-bold">
-                  {isKawaii ? "Sweet Elegance Draft Campaign" : "Metamorphosis Vol I: The Monolithic Drape"}
+                  {isKawaii ? "Campaña Sweet Elegance" : "Metamorfosis Vol I: El Drapeado Monolítico"}
                 </h3>
                 <p className="text-xs text-stone-300 max-w-xl font-light leading-relaxed">
                   Captured during the Paris archival studio launch. Spotlighting double gabardine cotton structures and ultra-light layered pastel tulle, reflecting core form and sweet aesthetics in synthesis. Played with customized spatial synthesizer track loops.

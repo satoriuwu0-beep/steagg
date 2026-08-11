@@ -373,7 +373,7 @@ ${shippingLine}${discountLine}
                   <div className="flex justify-between items-end">
                     <div>
                       <span className="text-[10px] text-stone-400 uppercase font-bold block">TOTAL</span>
-                      <span className="text-xl font-bold font-mono text-stone-950">${grandTotal.toFixed(0)} USD</span>
+                      <span className="text-xl font-bold font-mono text-stone-950">{new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(grandTotal)}</span>
                     </div>
 
                     <button
@@ -477,7 +477,7 @@ ${shippingLine}${discountLine}
                                 {item.name}
                               </h4>
                               <span className="text-sm font-bold font-mono text-stone-750 block mt-1">
-                                ${item.price} USD
+                                ${new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(item.price)}
                               </span>
                             </div>
 

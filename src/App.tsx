@@ -451,7 +451,7 @@ export default function App() {
                   <p className="text-xs text-stone-400 mt-1 line-clamp-2 font-light">{item.description}</p>
                 </div>
                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-stone-100">
-                  <span className="text-sm font-bold font-mono">${item.price} USD</span>
+                  <span className="text-sm font-bold font-mono">${item.price}</span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${isKawaii ? 'text-pink-500' : 'text-stone-700'}`}>
                     <span>VER PIEZA</span>
                     <ArrowRight size={11} className="group-hover:translate-x-1.5 transition-transform" />
@@ -531,13 +531,13 @@ export default function App() {
 
             {/* Catálogo horizontal con scroll nativo — responsive y con lightbox */}
             <AngelaCatalog items={[
-              { name: 'Set Dark Gothic', price: 115000, img: '/angela/dark-gothic-set.jpg', tag: '🖤 Dark', desc: 'Set lila con diseños góticos. Bralette + tanga. Exclusivo.' },
-              { name: 'Baby Doll Mariposas', price: 98000, img: '/angela/pink-butterfly.jpg', tag: '🦋 Dulce', desc: 'Baby doll rosa con encaje y tul estampado de mariposas.' },
-              { name: 'Camisón Negro', price: 105000, img: '/angela/black-sheer.jpg', tag: '🌑 Elegante', desc: 'Camisón negro con encaje bordado y lazo de satén.' },
-              { name: 'Corsé Rojo & Negro', price: 118000, img: '/angela/black-red-corset.jpg', tag: '❤️ Pasión', desc: 'Set con corsé de cordones rojo, ligueros y liga decorativa.' },
-              { name: 'Set Floral Teal', price: 112000, img: '/angela/teal-floral.jpg', tag: '🌊 Exclusivo', desc: 'Corpiño floral azul teal con tanga y liga artesanal.' },
-              { name: 'Set Lila Completo', price: 120000, img: '/angela/lilac-set.jpg', tag: '💜 Favorito', desc: 'Set lila 3 piezas con bralette, tanga y ligueros a juego.' },
-              { name: 'Body Menta Floral', price: 108000, img: '/angela/mint-bodysuit.jpg', tag: '🌿 Nuevo', desc: 'Body de encaje menta con flores bordadas. Pieza de colección.' },
+              { name: 'Set Dark Gothic', price: 68000, img: '/angela/dark-gothic-set.jpg', tag: '🖤 Dark', desc: 'Set lila con diseños góticos. Bralette + tanga. Exclusivo.' },
+              { name: 'Baby Doll Mariposas', price: 62000, img: '/angela/pink-butterfly.jpg', tag: '🦋 Dulce', desc: 'Baby doll rosa con encaje y tul estampado de mariposas.' },
+              { name: 'Camisón Negro', price: 65000, img: '/angela/black-sheer.jpg', tag: '🌑 Elegante', desc: 'Camisón negro con encaje bordado y lazo de satén.' },
+              { name: 'Corsé Rojo & Negro', price: 70000, img: '/angela/black-red-corset.jpg', tag: '❤️ Pasión', desc: 'Set con corsé de cordones rojo, ligueros y liga decorativa.' },
+              { name: 'Set Floral Teal', price: 68000, img: '/angela/teal-floral.jpg', tag: '🌊 Exclusivo', desc: 'Corpiño floral azul teal con tanga y liga artesanal.' },
+              { name: 'Set Lila Completo', price: 70000, img: '/angela/lilac-set.jpg', tag: '💜 Favorito', desc: 'Set lila 3 piezas con bralette, tanga y ligueros a juego.' },
+              { name: 'Body Menta Floral', price: 65000, img: '/angela/mint-bodysuit.jpg', tag: '🌿 Nuevo', desc: 'Body de encaje menta con flores bordadas. Pieza de colección.' },
             ]} />
             {/* CTA */}
             <div className="text-center mt-10">

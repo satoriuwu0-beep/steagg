@@ -438,7 +438,7 @@ export default function AdminDashboard({
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Pricing ($ USD) *</label>
+                      <label className="block text-[10px] font-bold uppercase text-stone-400 mb-1">Precio (COP) *</label>
                       <input
                         type="number"
                         required
@@ -548,7 +548,7 @@ export default function AdminDashboard({
                           <div className="overflow-hidden">
                             <h4 className="text-xs font-bold truncate text-stone-800">{p.name}</h4>
                             <div className="flex gap-2 text-[10px] text-stone-405 font-mono">
-                              <span className="font-semibold text-stone-600">${p.price} USD</span>
+                              <span className="font-semibold text-stone-600">{new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(p.price)}</span>
                               <span>•</span>
                               <span className={`px-1.5 py-0.2 rounded font-bold ${
                                 p.brandMode === 'STEAGG_KAWAII' ? 'bg-rose-100 text-rose-700' : 'bg-stone-200 text-stone-800'

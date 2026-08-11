@@ -196,10 +196,10 @@ export default function ProductDetailModal({
               {/* Price & original rating */}
               <div className="flex items-center gap-4 mb-4 pb-4 border-b border-stone-100">
                 <div className={`flex items-end gap-2 text-xl font-bold ${isKawaii ? 'font-kawaii text-rose-500' : 'font-mono text-stone-950'}`}>
-                  <span>${product.price} USD</span>
+                  <span>{new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(product.price)}</span>
                   {product.originalPrice && (
                     <span className="text-xs text-stone-400 line-through font-normal">
-                      ${product.originalPrice}
+                      {new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(product.originalPrice)}
                     </span>
                   )}
                 </div>

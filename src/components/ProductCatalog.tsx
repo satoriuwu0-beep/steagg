@@ -204,9 +204,9 @@ export default function ProductCatalog({
                 <div>
                   <div className="flex artículos-center justify-between mb-3">
                     <h4 className={`text-xs font-bold uppercase ${isKawaii ? 'text-pink-600' : 'text-stone-900 tracking-wider'}`}>
-                      Maximum Pricing Tier
+                      Precio máximo
                     </h4>
-                    <span className="text-xs font-bold font-mono">${maxPrice} USD</span>
+                    <span className="text-xs font-bold font-mono">{new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(maxPrice)}</span>
                   </div>
                   <input
                     type="range"

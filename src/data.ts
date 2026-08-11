@@ -2,10 +2,10 @@ import { Product, BrandingSettings } from './types';
 
 export const INITIAL_BRANDING: BrandingSettings = {
   brandName: "STEAGG",
-  luxurySlogan: "MINIMALISMO ARQUITECTÓNICO. FORMA SIN CONCESIONES.",
-  kawaiiSlogan: "CIELO PASTEL. SUEÑOS DULCES Y ELEGANTES.",
-  heroTitle: "METAMORFOSIS ELEVADA",
-  heroSubtitle: "Una selección de siluetas vanguardistas y estéticas sastrerías de alta gama.",
+  luxurySlogan: "ESTILO QUE SE SIENTE. MODA QUE SE VIVE.",
+  kawaiiSlogan: "DULCE POR FUERA. FUEGO POR DENTRO.",
+  heroTitle: "TU ESTILO, TU REGLA",
+  heroSubtitle: "Ropa que dice algo antes de que tú hables. Piezas únicas para personas que no siguen tendencias — las crean.",
   heroImage: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1600&auto=format&fit=crop&q=80",
   announcementText: "ENVÍO GRATIS EN TODO COLOMBIA · PIEZAS LIMITADAS · NUEVA COLECCIÓN DISPONIBLE",
   promotionBanner: "ESPECIAL DE TEMPORADA: 15% DE DESCUENTO EN TODA LA COLECCIÓN. CÓDIGO: SWEET15",

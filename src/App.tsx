@@ -16,6 +16,7 @@ import AppQRSection from './components/AppQRSection';
 import AuthModal from './components/AuthModal';
 import CartAndWishlistDrawers from './components/CartAndWishlistDrawers';
 import ModaCircularPage from './components/ModaCircularPage';
+import AngelaCatalog from './components/AngelaCatalog';
 
 // Formateador de precios en pesos colombianos
 const formatCOP = (n: number) =>
@@ -528,81 +529,16 @@ export default function App() {
               ))}
             </div>
 
-            {/* Catálogo horizontal con scroll tipo carrusel */}
-            <div className="relative">
-              {/* Sombra izquierda */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#fff5f6] to-transparent z-10 pointer-events-none" />
-              {/* Sombra derecha */}
-              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#fff5f6] to-transparent z-10 pointer-events-none" />
-
-              <motion.div
-                className="flex gap-5 overflow-x-auto pb-6 pt-2 px-4 scroll-smooth"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: 'grab' }}
-                drag="x"
-                dragConstraints={{ left: -900, right: 0 }}
-                whileDrag={{ cursor: 'grabbing' }}
-              >
-                {[
-                  { name: 'Set Dark Gothic', price: 115000, img: '/angela/dark-gothic-set.jpg', tag: '🖤 Dark', desc: 'Set lila con diseños góticos. Bralette + tanga. Exclusivo.' },
-                  { name: 'Baby Doll Mariposas', price: 98000, img: '/angela/pink-butterfly.jpg', tag: '🦋 Dulce', desc: 'Baby doll rosa con encaje y tul estampado de mariposas.' },
-                  { name: 'Camisón Negro Transparente', price: 105000, img: '/angela/black-sheer.jpg', tag: '🌑 Elegante', desc: 'Camisón negro con encaje bordado y lazo de satén.' },
-                  { name: 'Corsé Rojo & Negro', price: 118000, img: '/angela/black-red-corset.jpg', tag: '❤️ Pasión', desc: 'Set con corsé de cordones rojo, ligueros y liga decorativa.' },
-                  { name: 'Set Floral Teal', price: 112000, img: '/angela/teal-floral.jpg', tag: '🌊 Exclusivo', desc: 'Corpiño floral azul teal con tanga y liga artesanal.' },
-                  { name: 'Set Lila Completo', price: 120000, img: '/angela/lilac-set.jpg', tag: '💜 Favorito', desc: 'Set lila 3 piezas con bralette, tanga y ligueros a juego.' },
-                  { name: 'Body Menta Floral', price: 108000, img: '/angela/mint-bodysuit.jpg', tag: '🌿 Nuevo', desc: 'Body de encaje menta con flores bordadas. Pieza de colección.' },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 0.5, delay: i * 0.06 }}
-                    whileHover={{ scale: 1.04, y: -6 }}
-                    className="group bg-white rounded-3xl border border-rose-100 shadow-md hover:shadow-2xl transition-all duration-400 overflow-hidden cursor-pointer flex-shrink-0"
-                    style={{ width: 260 }}
-                  >
-                    <div className="relative overflow-hidden" style={{ height: 340 }}>
-                      <motion.img
-                        src={item.img}
-                        alt={item.name}
-                        className="w-full h-full object-cover object-top"
-                        whileHover={{ scale: 1.08 }}
-                        transition={{ duration: 0.5 }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-bold text-rose-600 shadow-sm">
-                        {item.tag}
-                      </span>
-                      <motion.button
-                        initial={{ opacity: 0, y: 10 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-rose-400 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300"
-                      >
-                        🛒 Agregar
-                      </motion.button>
-                    </div>
-                    <div className="p-4">
-                      <h4 className="font-bold text-sm text-rose-900 mb-1">{item.name}</h4>
-                      <p className="text-[11px] text-stone-400 leading-relaxed mb-2 line-clamp-2">{item.desc}</p>
-                      <p className="text-rose-500 font-bold text-base">
-                        {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(item.price)}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              {/* Hint de scroll */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                className="text-center text-xs text-rose-300 mt-2 flex items-center justify-center gap-2"
-              >
-                <span>←</span> <span>desliza para ver más creaciones</span> <span>→</span>
-              </motion.p>
-            </div>
-
+            {/* Catálogo horizontal con scroll nativo — responsive y con lightbox */}
+            <AngelaCatalog items={[
+              { name: 'Set Dark Gothic', price: 115000, img: '/angela/dark-gothic-set.jpg', tag: '🖤 Dark', desc: 'Set lila con diseños góticos. Bralette + tanga. Exclusivo.' },
+              { name: 'Baby Doll Mariposas', price: 98000, img: '/angela/pink-butterfly.jpg', tag: '🦋 Dulce', desc: 'Baby doll rosa con encaje y tul estampado de mariposas.' },
+              { name: 'Camisón Negro', price: 105000, img: '/angela/black-sheer.jpg', tag: '🌑 Elegante', desc: 'Camisón negro con encaje bordado y lazo de satén.' },
+              { name: 'Corsé Rojo & Negro', price: 118000, img: '/angela/black-red-corset.jpg', tag: '❤️ Pasión', desc: 'Set con corsé de cordones rojo, ligueros y liga decorativa.' },
+              { name: 'Set Floral Teal', price: 112000, img: '/angela/teal-floral.jpg', tag: '🌊 Exclusivo', desc: 'Corpiño floral azul teal con tanga y liga artesanal.' },
+              { name: 'Set Lila Completo', price: 120000, img: '/angela/lilac-set.jpg', tag: '💜 Favorito', desc: 'Set lila 3 piezas con bralette, tanga y ligueros a juego.' },
+              { name: 'Body Menta Floral', price: 108000, img: '/angela/mint-bodysuit.jpg', tag: '🌿 Nuevo', desc: 'Body de encaje menta con flores bordadas. Pieza de colección.' },
+            ]} />
             {/* CTA */}
             <div className="text-center mt-10">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
